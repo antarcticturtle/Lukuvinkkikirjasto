@@ -10,15 +10,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 import io.*;
+import data_access.*;
 
 public class AppTest {
     StubIO io;
+    ItemDao itemDao = new InMemoryItemDao();
 
     @Test public void appGreetsOnStart() {
         List<String> inputLines = new ArrayList<String>();
         inputLines.add("1");
         StubIO io = new StubIO(inputLines);
-        App app = new App(io);
+        App app = new App(io, itemDao);
         app.run();
         assertEquals("Welcome to the CS literature recommendation system!", io.getPrints().get(0));
     }

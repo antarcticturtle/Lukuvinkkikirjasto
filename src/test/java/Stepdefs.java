@@ -5,17 +5,24 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.ArrayList;
 import io.*;
+import data_access.*;
 
 public class Stepdefs {
     App app;
     StubIO io;
     List<String> inputLines = new ArrayList<>();
+    ItemDao itemDao = new InMemoryItemDao();
 
     @Given("^user starts the application$")
     public void program_is_start() throws Throwable {
         io = new StubIO(inputLines);
-        app = new App(io);
+        app = new App(io, itemDao);
         app.run();
+    }
+
+    @Given("^item \"([^\"]*)\" exists in the application")
+    public void item_exists_in_application(String item) throws Throwable {
+        itemDao.addItem(item);
     }
 
     @Given("^command \"([^\"]*)\" is entered$")
@@ -26,7 +33,7 @@ public class Stepdefs {
     @When("^user does nothing$")
     public void user_does_nothing() {
         io = new StubIO(inputLines);
-        app = new App(io);
+        app = new App(io, itemDao);
         app.run();
     }
 
