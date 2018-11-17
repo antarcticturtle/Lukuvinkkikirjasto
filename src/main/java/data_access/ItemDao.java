@@ -1,9 +1,10 @@
 package data_access;
 
 import java.util.List;
+import domain.*;
 
 public interface ItemDao {
-    List<String> getItems();
-    String getItemById(int id);
-    void addItem(String item);
+    List<Item> getItems();
+    Item getItemById(int id);
+    void addItem(Item item);
 }

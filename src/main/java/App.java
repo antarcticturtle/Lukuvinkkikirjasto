@@ -34,7 +34,7 @@ public class App {
                     io.print("No items added yet");
                 } else {
                     for (int x = 0; x < itemDao.getItems().size(); x++) {
-                        io.print(itemDao.getItemById(x));
+                        io.print(itemDao.getItemById(x).toString());
                     }
                 }
             } else {

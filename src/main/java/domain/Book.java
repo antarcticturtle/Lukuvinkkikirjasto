@@ -64,5 +64,10 @@ public class Book implements Item{
     public void addTag(String tag) {
         this.tags.add(tag);
     }
+
+    @Override
+    public String toString() {
+        return this.title + " by " + this.author;
+    }
     
 }

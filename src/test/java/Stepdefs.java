@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import io.*;
 import data_access.*;
+import domain.*;
 
 public class Stepdefs {
     App app;
@@ -20,9 +21,9 @@ public class Stepdefs {
         app.run();
     }
 
-    @Given("^item \"([^\"]*)\" exists in the application")
-    public void item_exists_in_application(String item) throws Throwable {
-        itemDao.addItem(item);
+    @Given("^item \"([^\"]*)\" \"([^\"]*)\" exists in the application")
+    public void item_exists_in_application(String title, String author) throws Throwable {
+        itemDao.addItem(new Book(title, author));
     }
 
     @Given("^command \"([^\"]*)\" is entered$")
