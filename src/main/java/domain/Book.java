@@ -67,7 +67,7 @@ public class Book implements Item{
 
     @Override
     public String toString() {
-        return this.title + " by " + this.author;
+        return "Book: " + this.title + " by " + this.author;
     }
     
 }

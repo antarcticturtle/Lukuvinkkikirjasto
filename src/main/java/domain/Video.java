@@ -8,9 +8,9 @@ import java.util.List;
 public class Video implements Item {
 	private String url;
 	private String title;
-	private String description;
-	private List<String> tags;
 	private String author;
+	private String description;
+	private List<String> tags;	
 	
 	public Video(String title, String url) {
 		this.title = title;
@@ -18,7 +18,6 @@ public class Video implements Item {
 		this.tags = new ArrayList<>();
 	}
     
-
 	@Override
 	public String getTitle() {
 		return this.title;
@@ -71,7 +70,7 @@ public class Video implements Item {
 	
 	@Override
 	public String toString() {
-		return this.title + " by " + this.author;
+		return "Video: " + this.title + " by " + this.author;
 	}
 	
 }
