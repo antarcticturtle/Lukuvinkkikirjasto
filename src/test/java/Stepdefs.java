@@ -47,6 +47,7 @@ public class Stepdefs {
         command_is_entered("");
         command_is_entered("");
         command_is_entered("");
+        command_is_entered("");
     }
     
     @When("^item \"([^\"]*)\" \"([^\"]*)\" with additional information \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
