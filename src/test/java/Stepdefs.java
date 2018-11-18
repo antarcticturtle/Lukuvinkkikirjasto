@@ -48,6 +48,16 @@ public class Stepdefs {
         command_is_entered("");
         command_is_entered("");
     }
+    
+    @When("^item \"([^\"]*)\" \"([^\"]*)\" with additional information \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
+    public void item_with_additional_information_is_added(String title, String author, String url, String isbn, String tag) throws Throwable {
+        command_is_entered(title);
+        command_is_entered(author);
+        command_is_entered(url);
+        command_is_entered(isbn);
+        command_is_entered(tag);
+        command_is_entered("");
+    }
 
     @When("items are listed$")
     public void list_items() {

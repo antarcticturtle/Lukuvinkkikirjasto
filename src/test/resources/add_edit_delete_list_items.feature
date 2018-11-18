@@ -29,3 +29,10 @@ Feature: As a user I want to add, edit, delete, modify and list items
         And items are listed
         And user does nothing
         Then system will respond with "NewBook by SomeAuthor"
+
+    Scenario: user can add an item with additional information
+        Given command "new" is entered
+        When item "NewBook" "SomeAuthor" with additional information "url" "isbn" "tag" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "NewBook by SomeAuthor"    
