@@ -1,3 +1,4 @@
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,6 +10,7 @@ import data_access.*;
 import domain.*;
 
 public class Stepdefs {
+
     App app;
     StubIO io;
     List<String> inputLines = new ArrayList<>();
@@ -36,6 +38,20 @@ public class Stepdefs {
         io = new StubIO(inputLines);
         app = new App(io, itemDao);
         app.run();
+    }
+
+    @When("^item \"([^\"]*)\" \"([^\"]*)\" is added$")
+    public void item_is_added(String title, String author) throws Throwable {
+        command_is_entered(title);
+        command_is_entered(author);
+        command_is_entered("");
+        command_is_entered("");
+        command_is_entered("");
+    }
+
+    @When("items are listed$")
+    public void list_items() {
+        command_is_entered("list");
     }
 
     @Then("^system will respond with \"([^\"]*)\"$")

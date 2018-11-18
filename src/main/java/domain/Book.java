@@ -14,7 +14,7 @@ public class Book implements Item{
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
-        List<String> tags = new ArrayList<>();
+        this.tags = new ArrayList<>();
     }    
 
     public String getTitle() {

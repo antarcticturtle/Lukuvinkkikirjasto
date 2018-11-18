@@ -23,4 +23,9 @@ Feature: As a user I want to add, edit, delete, modify and list items
         Then system will respond with "Book3 by Author2"
         Then system will respond with "Book4 by Author3"
 
-    
+    Scenario: user can add an item
+        Given command "new" is entered
+        When item "NewBook" "SomeAuthor" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "NewBook by SomeAuthor"
