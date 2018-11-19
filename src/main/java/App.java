@@ -61,7 +61,7 @@ public class App {
     }
 	
 	private void addItem() {
-		String type = io.readLine("Type: (book, video, blog post)");
+		String type = io.readLine("Type: (book, video, blog post, podcast)");
 		
 		switch(type) {
 			case "book":
@@ -74,6 +74,10 @@ public class App {
 				
 			case "blog post":
 				addBlogPost();
+				break;
+				
+			case "podcast":
+				addPodcast();
 				break;
 				
 			default:
@@ -164,6 +168,33 @@ public class App {
 		itemDao.addItem(blogPost);
 	}
 	
+	private void addPodcast() {
+		String podcastName = io.readLine("Podcast name:");
+		String title = io.readLine("Title:");
+		String description = io.readLine("Description:");
+		Item podcast = new Podcast(podcastName, title, description);
+		
+		String author = io.readLine("Author (leave empty to skip):");
+		if (!author.equals("")) {
+			podcast.setAuthor(author);
+		}
+		
+		String url = io.readLine("url link (leave empty to skip):");
+		if (!url.equals("")) {
+			podcast.setUrl(url);
+		}
+		
+		while (true) {
+			String tag = io.readLine("add a tag (leave empty to stop):");
+			if (tag.equals("")) {
+				break;
+			} else {
+				podcast.addTag(tag);
+			}
+		}
+		itemDao.addItem(podcast);
+	}
+	
 	private void listItems() {
 		if (itemDao.getItems().isEmpty()) {
 			io.print("No items added yet");
@@ -184,5 +215,5 @@ public class App {
         IO io = new TextIO();
         new App(io, itemDao).run();
     }    
-    
+   
 }

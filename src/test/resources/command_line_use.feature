@@ -9,4 +9,4 @@ Feature: As a user I want to use the application through command line interface
     Scenario: user can add a new item
         Given command "new" is entered
         When user does nothing
-        Then system will respond with "Type: (book, video, blog post)"
+        Then system will respond with "Type: (book, video, blog post, podcast)"
