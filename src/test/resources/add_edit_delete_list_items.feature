@@ -1,5 +1,3 @@
-#COMMENTED BECAUSE THE FINAL OUTPUT IS STILL CHANGING
-
 Feature: As a user I want to add, edit, delete, modify and list items
 
     Scenario: user can list when there are no items added yet
