@@ -10,9 +10,10 @@ public class Base implements Item {
 	private String description;
 	private List<String> tags;	
 	
-	public Base(String title, String url) {
+	public Base(String title, String author, String url) {
 		this.title = title;
-		this.url = url;
+        this.author = author;
+        this.url = url;
 		this.tags = new ArrayList<>();
 	}
     
@@ -66,9 +67,9 @@ public class Base implements Item {
 		this.tags.add(tag);
 	}
 	
-	@Override
-	public String toString() {
-		return "Base: " + this.title + " by " + this.author;
-	}
+	// @Override
+	// public String toString() {
+	// 	return "Base: " + this.title + " by " + this.author;
+	// }
 	
 }

@@ -2,6 +2,7 @@ package item;
 
 import data_access.ItemDao;
 import java.util.List;
+import java.util.ArrayList;
 
 import data_access.*;
 import io.*;
@@ -25,35 +26,22 @@ public class ItemController {
                 io.print(item.toString());
             }
 		}
-    }
+	}
+	
+	public List<String> addItem() {
+		List<String> args = new ArrayList<String>();
+		args.add(io.readLine("Title: "));
+		args.add(io.readLine("Author: "));
+		args.add(io.readLine("Url: "));
+		return args;
+	}
     
     public void addBook() {
-        String title = io.readLine("Title:");
-		String author = io.readLine("Author:");
-		Book book = new Book(title, author);
-		
-		String url = io.readLine("url link (leave empty to skip):");
-		if (!url.equals("")) {
-			book.setUrl(url);
-		}
-		
+		List<String> itemArgs = addItem();
 		String isbn = io.readLine("ISBN (leave empty to skip):");
+		Book book = new Book(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
 		if (!isbn.equals("")) {
 			book.setIsbn(isbn);
-		}
-		
-		String description = io.readLine("Description (leave empty to skip):");
-		if (!description.equals("")) {
-			book.setDescription(description);
-		}
-		
-		while (true) {
-			String tag = io.readLine("add a tag (leave empty to stop):");
-			if (tag.equals("")) {
-				break;
-			} else {
-				book.addTag(tag);
-			}
 		}
 		itemDao.addItem(book);
     }
@@ -61,13 +49,9 @@ public class ItemController {
     public void addVideo() {
     
 		String title = io.readLine("Title:");
-		String url = io.readLine("URL:");
-		Item video = new Video(title, url);
-		
-		String author = io.readLine("Author (leave empty to skip):");
-		if (!author.equals("")) {
-			video.setAuthor(author);
-		}
+		String url = io.readLine("Author:");
+		String author = io.readLine("Url:");
+		Item video = new Video(title, author, url);
 		
 		String description = io.readLine("Description (leave empty to skip):");
 		if (!description.equals("")) {
@@ -87,13 +71,9 @@ public class ItemController {
 
     public void addBlogPost() {
 		String title = io.readLine("Title:");
-		String url = io.readLine("URL:");
-		Item blogPost = new BlogPost(title, url);
-		
-		String author = io.readLine("Author (leave empty to skip):");
-		if (!author.equals("")) {
-			blogPost.setAuthor(author);
-		}
+		String author = io.readLine("Author:");
+		String url = io.readLine("Url:");
+		Item blogPost = new BlogPost(title, author, url);
 		
 		String description = io.readLine("Description (leave empty to skip):");
 		if (!description.equals("")) {

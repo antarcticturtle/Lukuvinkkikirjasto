@@ -3,12 +3,11 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book extends Base{
+public class Book extends Base implements Item{
     private String isbn;
     
-    public Book(String title, String url) {
-        super(title, url);
-        this.setAuthor(url);
+    public Book(String title, String author, String url) {
+        super(title, author, url);
     }
     
     public String getIsbn() {
@@ -21,7 +20,18 @@ public class Book extends Base{
 
     @Override
     public String toString() {
-        return "Book: " + this.getTitle() + " by " + this.getAuthor();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Book: ");
+        sb.append(this.getTitle());
+        sb.append(" by ");
+        sb.append(this.getAuthor());
+        sb.append(" ");
+        sb.append(this.getUrl());
+        if (isbn != null) {
+            sb.append(" Isbn: ");
+            sb.append(this.getIsbn());
+        }
+        return sb.toString();
     }
     
 }

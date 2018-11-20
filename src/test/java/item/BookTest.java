@@ -11,13 +11,13 @@ public class BookTest {
     
     @Before
     public void setUp() {
-        book = new Book("Name", "Author");
+        book = new Book("Name", "Author", "Url");
     }
     
     @Test 
     public void bookIsCreatedWithNameAndAuthor() {
-        Book book = new Book("Name", "Author");
-        assertEquals("Book: Name by Author", book.toString());
+        Book book = new Book("Name", "Author", "Url");
+        assertEquals("Book: Name by Author Url", book.toString());
     }
     
     @Test 
