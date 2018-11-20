@@ -14,3 +14,13 @@ Ohjelmistotuotanto-miniprojekti 2018
   - Classes, packages, methods amd variables have meaningful names
   - Code style is consistent
 - Code is in Github and Travis tests are passing
+
+## Installing and running the application
+
+Clone this repository to your computer.
+
+In the base directory run the command `~/Lukuvinkkikirjasto$ ./gradlew jar` to build the jar file
+
+Start the application with command `~/Lukuvinkkikirjasto$ java -jar build/libs/Lukuvinkkikirjasto.jar`
+
+Run tests with command `~/Lukuvinkkikirjasto$ ./gradlew test`

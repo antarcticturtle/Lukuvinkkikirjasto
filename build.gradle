@@ -45,3 +45,11 @@ run {
 }
 
 apply plugin: "jacoco" 
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'App'
+        )
+    }
+}
