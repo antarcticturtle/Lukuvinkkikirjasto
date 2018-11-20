@@ -1,7 +1,7 @@
 package data_access;
 
 import java.util.List;
-import domain.*;
+import item.*;
 
 public interface ItemDao {
     List<Item> getItems();

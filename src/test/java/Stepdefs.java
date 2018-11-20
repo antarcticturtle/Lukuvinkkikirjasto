@@ -1,4 +1,3 @@
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -7,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import io.*;
 import data_access.*;
-import domain.*;
+import item.*;
 
 public class Stepdefs {
 
@@ -15,11 +14,12 @@ public class Stepdefs {
     StubIO io;
     List<String> inputLines = new ArrayList<>();
     ItemDao itemDao = new InMemoryItemDao();
+    ItemController itemController;
 
     @Given("^user starts the application$")
     public void program_is_start() throws Throwable {
         io = new StubIO(inputLines);
-        app = new App(io, itemDao);
+        app = new App(io, itemDao, itemController);
         app.run();
     }
 
@@ -36,7 +36,8 @@ public class Stepdefs {
     @When("^user does nothing$")
     public void user_does_nothing() {
         io = new StubIO(inputLines);
-        app = new App(io, itemDao);
+        itemController = new ItemController(itemDao, io);
+        app = new App(io, itemDao, itemController);
         app.run();
     }
 

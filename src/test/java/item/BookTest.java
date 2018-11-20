@@ -1,4 +1,4 @@
-package domain;
+package item;
 
 import org.junit.After;
 import org.junit.Before;

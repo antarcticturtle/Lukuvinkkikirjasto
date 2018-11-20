@@ -2,7 +2,7 @@ package data_access;
 
 import java.util.List;
 import java.util.ArrayList;
-import domain.*;
+import item.*;
 
 public class InMemoryItemDao implements ItemDao {
     private List<Item> items;

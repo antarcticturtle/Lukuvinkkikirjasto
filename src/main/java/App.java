@@ -1,18 +1,20 @@
 
 import io.*;
 import data_access.*;
-import domain.*;
-import domain.Video;
+import item.*;
+import item.Video;
 
 
 public class App {
 
     private IO io;
     private ItemDao itemDao;
+    private ItemController itemController;
 
-    public App(IO io, ItemDao itemDao) {
+    public App(IO io, ItemDao itemDao, ItemController itemController) {
         this.io = io;
         this.itemDao = itemDao;
+        this.itemController = itemController;
     }
 
     public void run() {
@@ -32,7 +34,7 @@ public class App {
 					goOn = false;
 					break;
 					
-				case "new":
+                case "new":
 					addItem();
 					break;
 					
@@ -196,14 +198,7 @@ public class App {
 	}
 	
 	private void listItems() {
-		if (itemDao.getItems().isEmpty()) {
-			io.print("No items added yet");
-		} else {
-			for (Item item : itemDao.getItems()) {
-				io.print(item.toString());
-			}
-		}
-		
+        this.itemController.listItems();
 	}
 	
 	private void printGoodbye() {
@@ -213,7 +208,8 @@ public class App {
     public static void main(String[] args) {
         ItemDao itemDao = new InMemoryItemDao();
         IO io = new TextIO();
-        new App(io, itemDao).run();
+        ItemController itemController = new ItemController(itemDao, io);
+        new App(io, itemDao, itemController).run();
     }    
    
 }
