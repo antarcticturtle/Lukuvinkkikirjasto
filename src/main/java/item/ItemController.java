@@ -47,74 +47,20 @@ public class ItemController {
     }
 
     public void addVideo() {
-    
-		String title = io.readLine("Title:");
-		String url = io.readLine("Author:");
-		String author = io.readLine("Url:");
-		Item video = new Video(title, author, url);
-		
-		String description = io.readLine("Description (leave empty to skip):");
-		if (!description.equals("")) {
-			video.setDescription(description);
-		}
-		
-		while (true) {
-			String tag = io.readLine("add a tag (leave empty to stop):");
-			if (tag.equals("")) {
-				break;
-			} else {
-				video.addTag(tag);
-			}
-		}
-        itemDao.addItem(video);
+		List<String> itemArgs = addItem();
+		Video video = new Video(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
+		itemDao.addItem(video);
     }
 
     public void addBlogPost() {
-		String title = io.readLine("Title:");
-		String author = io.readLine("Author:");
-		String url = io.readLine("Url:");
-		Item blogPost = new BlogPost(title, author, url);
-		
-		String description = io.readLine("Description (leave empty to skip):");
-		if (!description.equals("")) {
-			blogPost.setDescription(description);
-		}
-		
-		while (true) {
-			String tag = io.readLine("add a tag (leave empty to stop):");
-			if (tag.equals("")) {
-				break;
-			} else {
-				blogPost.addTag(tag);
-			}
-		}
+		List<String> itemArgs = addItem();
+		BlogPost blogPost = new BlogPost(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
 		itemDao.addItem(blogPost);
     }
     
     public void addPodcast() {
-		String podcastName = io.readLine("Podcast name:");
-		String title = io.readLine("Title:");
-		String description = io.readLine("Description:");
-		Item podcast = new Podcast(podcastName, title, description);
-		
-		String author = io.readLine("Author (leave empty to skip):");
-		if (!author.equals("")) {
-			podcast.setAuthor(author);
-		}
-		
-		String url = io.readLine("url link (leave empty to skip):");
-		if (!url.equals("")) {
-			podcast.setUrl(url);
-		}
-		
-		while (true) {
-			String tag = io.readLine("add a tag (leave empty to stop):");
-			if (tag.equals("")) {
-				break;
-			} else {
-				podcast.addTag(tag);
-			}
-		}
-		itemDao.addItem(podcast);
+		List<String> itemArgs = addItem();
+		Podcast podCast = new Podcast(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
+		itemDao.addItem(podCast);
 	}
 }

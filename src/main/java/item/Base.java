@@ -67,9 +67,9 @@ public class Base implements Item {
 		this.tags.add(tag);
 	}
 	
-	// @Override
-	// public String toString() {
-	// 	return "Base: " + this.title + " by " + this.author;
-	// }
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + ": " + this.title + " by " + this.author + " " + this.getUrl();
+	}
 	
 }
