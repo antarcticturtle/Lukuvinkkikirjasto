@@ -8,8 +8,9 @@ Ohjelmistotuotanto-miniprojekti 2018
 ## Definition of done
 - Acceptance criteria for the user story are defined in product backlog
 - Code meets the acceptance criteria and is integrated into the software
-- Test coverage for the code is at least 80%
+- Test coverage for the code is adequate with both JUnit and Cucumber tests
 - Code follows good practices and is easy to maintain:
   - Software architecture is logical
   - Classes, packages, methods amd variables have meaningful names
   - Code style is consistent
+- Code is in Github and Travis tests are passing
