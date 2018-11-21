@@ -41,12 +41,13 @@ public class Stepdefs {
         app.run();
     }
 
-    @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
-    public void item_is_added(String title, String author, String url) throws Throwable {
+    @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
+    public void item_is_added(String title, String author, String url, String isbn, String description) throws Throwable {
         command_is_entered(title);
         command_is_entered(author);
         command_is_entered(url);
-        command_is_entered("");
+        command_is_entered(isbn);
+        command_is_entered(description);
     }
     
     @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" with additional information \"([^\"]*)\" is added$")

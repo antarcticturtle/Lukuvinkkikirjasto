@@ -39,9 +39,13 @@ public class ItemController {
     public void addBook() {
 		List<String> itemArgs = addItem();
 		String isbn = io.readLine("ISBN (leave empty to skip):");
+		String description = io.readLine("Description (leave empty to skip):");
 		Book book = new Book(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
 		if (!isbn.equals("")) {
 			book.setIsbn(isbn);
+		}
+		if (!description.equals("")) {
+			book.setDescription(description);
 		}
 		itemDao.addItem(book);
     }

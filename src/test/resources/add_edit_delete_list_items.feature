@@ -26,15 +26,15 @@ Feature: As a user I want to add, edit, delete, modify and list items
     Scenario: user can add an item
         Given command "new" is entered
         And command "book" is entered
-        When item "NewBook" "SomeAuthor" "url" is added
+        When item "NewBook" "SomeAuthor" "url" "isbn" "description" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "Book: NewBook by SomeAuthor url Isbn: isbn description"
+
+    Scenario: user can add an item
+        Given command "new" is entered
+        And command "book" is entered
+        When item "NewBook" "SomeAuthor" "url" "" "" is added
         And items are listed
         And user does nothing
         Then system will respond with "Book: NewBook by SomeAuthor url"
-
-    Scenario: user can add an item with additional information
-        Given command "new" is entered
-        And command "book" is entered
-        When item "NewBook" "SomeAuthor" "ThisUrl" with additional information "isbn" is added
-        And items are listed
-        And user does nothing
-        Then system will respond with "Book: NewBook by SomeAuthor ThisUrl Isbn: isbn"
