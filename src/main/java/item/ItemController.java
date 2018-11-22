@@ -27,6 +27,19 @@ public class ItemController {
             }
 		}
 	}
+
+	public void deleteItem() {
+		for (Item item : itemDao.getItems()) {
+			io.print(item.toString());
+		}
+		String id = io.readLine("Select the id of the item you want to delete");
+		try {
+			Item item = itemDao.deleteItemById(Integer.parseInt(id));
+			io.print("Deleted item " + item.getTitle());
+		} catch (IndexOutOfBoundsException exception) {
+			io.print("Invalid id");
+		}
+	}
 	
 	public List<String> addItem() {
 		List<String> args = new ArrayList<String>();

@@ -45,6 +45,10 @@ public class App {
 				case "edit":
 					editItem();
 					break;
+
+				case "delete":
+					deleteItem();
+					break;
 					
 				default:
 					io.print("unknown option");
@@ -60,7 +64,8 @@ public class App {
 		return io.readLine("quit = quit the application\n"
 				+ "new = add a new item\n"
 				+ "list = list items\n"
-				+ "edit = edit item");
+				+ "edit = edit item\n"
+				+ "delete = delete item");
 	}
 	
 	private void printGreeting(){
@@ -94,6 +99,10 @@ public class App {
 
 	private void editItem() {
 		itemController.editItem();
+	}
+
+	private void deleteItem() {
+		itemController.deleteItem();
 	}
 	
 	private void addBook() {

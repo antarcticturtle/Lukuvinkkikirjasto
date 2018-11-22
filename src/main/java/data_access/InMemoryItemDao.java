@@ -15,7 +15,7 @@ public class InMemoryItemDao implements ItemDao {
         return items;
     }
 
-    public Item getItemById(int id) {
+    public Item getItemById(int id) throws IndexOutOfBoundsException {
         return items.get(id);
     }
 
@@ -23,7 +23,7 @@ public class InMemoryItemDao implements ItemDao {
         this.items.add(item);
     }
 
-    public Item deleteItemById(int id) {
+    public Item deleteItemById(int id) throws IndexOutOfBoundsException {
         Item item = getItemById(id);
         items.remove(id);
         return item;
