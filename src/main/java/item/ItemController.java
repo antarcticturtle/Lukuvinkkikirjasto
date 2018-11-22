@@ -35,6 +35,26 @@ public class ItemController {
 		args.add(io.readLine("Url: "));
 		return args;
 	}
+
+	public void editItem() {
+		for (Item item : itemDao.getItems()) {
+			io.print(item.toString());
+		}
+		// needs to be converted to int
+		String id = io.readLine("Select the id of the item you want to edit");
+		String field = io.readLine("Select the field name you want to edit");
+		String new_value = io.readLine("Enter a new value");
+
+		Item item = itemDao.deleteItemById(Integer.parseInt(id));
+		if (field.equals("title")) {
+			item.setTitle(new_value);
+		} else if (field.equals("author")) {
+			item.setAuthor(new_value);
+		} else if (field.equals("url")) {
+			item.setUrl(new_value);
+		}
+		itemDao.addItem(item);
+	}
     
     public void addBook() {
 		List<String> itemArgs = addItem();

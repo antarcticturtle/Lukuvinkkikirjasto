@@ -22,4 +22,10 @@ public class InMemoryItemDao implements ItemDao {
     public void addItem(Item item) {
         this.items.add(item);
     }
+
+    public Item deleteItemById(int id) {
+        Item item = getItemById(id);
+        items.remove(id);
+        return item;
+    }
 }

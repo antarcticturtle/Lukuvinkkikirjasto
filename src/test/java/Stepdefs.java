@@ -41,6 +41,13 @@ public class Stepdefs {
         app.run();
     }
 
+    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" are entered$")
+    public void edit_commands(String id, String field, String edited) throws Throwable {
+        command_is_entered(id);
+        command_is_entered(field);
+        command_is_entered(edited);
+    }
+
     @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
     public void item_is_added(String title, String author, String url, String isbn, String description) throws Throwable {
         command_is_entered(title);
@@ -68,4 +75,11 @@ public class Stepdefs {
     public void system_will_respond_with(String message) throws Throwable {
         assertTrue(io.getPrints().contains(message));
     }
+
+    @Then("^system will respond with$")
+    public void system_will_respond_with_newlines(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(io.getPrints().contains(arg1));
+    }
+
 }

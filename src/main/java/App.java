@@ -41,6 +41,10 @@ public class App {
 				case "list":
 					listItems();
 					break;
+
+				case "edit":
+					editItem();
+					break;
 					
 				default:
 					io.print("unknown option");
@@ -55,7 +59,8 @@ public class App {
 	private String askForCommand() {
 		return io.readLine("quit = quit the application\n"
 				+ "new = add a new item\n"
-				+ "list = list items");
+				+ "list = list items\n"
+				+ "edit = edit item");
 	}
 	
 	private void printGreeting(){
@@ -85,6 +90,10 @@ public class App {
 			default:
 				io.print("unknown type");
 		}
+	}
+
+	private void editItem() {
+		itemController.editItem();
 	}
 	
 	private void addBook() {

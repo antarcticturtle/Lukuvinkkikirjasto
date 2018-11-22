@@ -7,4 +7,5 @@ public interface ItemDao {
     List<Item> getItems();
     Item getItemById(int id);
     void addItem(Item item);
+    Item deleteItemById(int id);
 }
