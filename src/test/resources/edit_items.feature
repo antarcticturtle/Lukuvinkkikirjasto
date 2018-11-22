@@ -30,13 +30,13 @@ Feature: As a user I want to edit items
         And user does nothing
         And system will respond with "Book: Title by New Author url"
 
-    Scenario: user can edit an book url
+    Scenario: user can edit an book description
         Given command "edit" is entered
-        And item "Title" "Author" "url" exists in the application
-        When edit commands "0" "url" "New Url" are entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "0" "description" "New Description" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by Author New Url"
+        And system will respond with "Book: Title by Author url Isbn: isbn New Description"
 
     Scenario: user can edit an book title when multiple books exist
         Given command "edit" is entered

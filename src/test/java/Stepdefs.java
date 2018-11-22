@@ -28,6 +28,14 @@ public class Stepdefs {
         itemDao.addItem(new Book(title, author, url));
     }
 
+    @Given("^book \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
+    public void book_exists_in_application(String title, String author, String url, String isbn, String description) throws Throwable {
+        Book book = new Book(title, author, url);
+        book.setIsbn(isbn);
+        book.setDescription(description);
+        itemDao.addItem(book);
+    }
+
     @Given("^command \"([^\"]*)\" is entered$")
     public void command_is_entered(String command) {
         inputLines.add(command);

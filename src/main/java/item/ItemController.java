@@ -52,6 +52,8 @@ public class ItemController {
 			item.setAuthor(new_value);
 		} else if (field.equals("url")) {
 			item.setUrl(new_value);
+		} else if (field.equals("description")) {
+			item.setDescription(new_value);
 		}
 		itemDao.addItem(item);
 	}
