@@ -69,7 +69,30 @@ public class Base implements Item {
 	
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + ": " + this.title + " by " + this.author + " " + this.getUrl();
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName());
+		sb.append(": ");
+		sb.append(this.getTitle());
+		if (this.author != null) {
+			sb.append(" by ");
+			sb.append(this.getAuthor());
+		}
+
+		if (this.url != null) {
+			sb.append(" ");
+			sb.append("Url: ");
+			sb.append(this.getUrl());
+		}
+
+        if (this.getDescription() != null) {
+			sb.append(" ");
+			sb.append("Description: ");
+            sb.append(this.getDescription());
+		}
+		return sb.toString();
+		// Book: Title by Author Url: url Description: New Description Isbn: isbn
+		// Book: t by aa Url: u Description: d Isbn: i
+		// Book: t by aa Url: u Description: New Description Isbn: i
 	}
 	
 }

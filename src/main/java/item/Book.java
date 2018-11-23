@@ -32,10 +32,6 @@ public class Book extends Base implements Item{
             sb.append(" Isbn: ");
             sb.append(this.getIsbn());
         }
-        if (description != null) {
-            sb.append(" ");
-            sb.append(this.getDescription());
-        }
         return sb.toString();
     }
     

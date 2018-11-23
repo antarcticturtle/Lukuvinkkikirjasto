@@ -13,7 +13,7 @@ Feature: As a user I want to edit items
             edit = edit item
             delete = delete item
             """
-        And system will respond with "Book: Title by Author url"
+        And system will respond with "Book: Title by Author Url: url"
 
     Scenario: user can edit a book title
         Given command "edit" is entered
@@ -21,7 +21,7 @@ Feature: As a user I want to edit items
         When edit commands "0" "title" "New Title" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: New Title by Author url"
+        And system will respond with "Book: New Title by Author Url: url"
 
     Scenario: user can delete an item
         Given command "delete" is entered
@@ -47,7 +47,7 @@ Feature: As a user I want to edit items
         When edit commands "0" "author" "New Author" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by New Author url"
+        And system will respond with "Book: Title by New Author Url: url"
 
     Scenario: user can edit an book description
         Given command "edit" is entered
@@ -55,7 +55,7 @@ Feature: As a user I want to edit items
         When edit commands "0" "description" "New Description" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by Author url Isbn: isbn New Description"
+        And system will respond with "Book: Title by Author Url: url Description: New Description Isbn: isbn"
 
     Scenario: user can edit an book title when multiple books exist
         Given command "edit" is entered
@@ -64,5 +64,5 @@ Feature: As a user I want to edit items
         When edit commands "1" "url" "www.youtube.com" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by Author url"
-        And system will respond with "Book: Learn Python by Developer www.youtube.com"
+        And system will respond with "Book: Title by Author Url: url"
+        And system will respond with "Book: Learn Python by Developer Url: www.youtube.com"

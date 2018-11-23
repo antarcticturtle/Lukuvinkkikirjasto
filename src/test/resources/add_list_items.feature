@@ -9,7 +9,7 @@ Feature: As a user I want to add, edit, delete, modify and list items
         Given command "list" is entered
         And item "Title" "Author" "url" exists in the application
         When user does nothing
-        Then system will respond with "Book: Title by Author url"
+        Then system will respond with "Book: Title by Author Url: url"
 
     Scenario: user can list multiple items
         Given command "list" is entered
@@ -29,7 +29,7 @@ Feature: As a user I want to add, edit, delete, modify and list items
         When item "NewBook" "SomeAuthor" "url" "isbn" "description" is added
         And items are listed
         And user does nothing
-        Then system will respond with "Book: NewBook by SomeAuthor url Isbn: isbn description"
+        Then system will respond with "Book: NewBook by SomeAuthor Url: url Isbn: isbn description"
 
     Scenario: user can add an item
         Given command "new" is entered
@@ -37,4 +37,4 @@ Feature: As a user I want to add, edit, delete, modify and list items
         When item "NewBook" "SomeAuthor" "url" "" "" is added
         And items are listed
         And user does nothing
-        Then system will respond with "Book: NewBook by SomeAuthor url"
+        Then system will respond with "Book: NewBook by SomeAuthor Url: url"
