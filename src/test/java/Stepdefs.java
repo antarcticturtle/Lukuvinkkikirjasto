@@ -25,12 +25,12 @@ public class Stepdefs {
 
     @Given("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void item_exists_in_application(String title, String author, String url) throws Throwable {
-        itemDao.addItem(new Book(title, author, url));
+        itemDao.addItem(new Book(title, author, url, ""));
     }
 
     @Given("^book \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void book_exists_in_application(String title, String author, String url, String isbn, String description) throws Throwable {
-        Book book = new Book(title, author, url);
+        Book book = new Book(title, author, url, description);
         book.setIsbn(isbn);
         book.setDescription(description);
         itemDao.addItem(book);
@@ -62,6 +62,14 @@ public class Stepdefs {
         command_is_entered(author);
         command_is_entered(url);
         command_is_entered(isbn);
+        command_is_entered(description);
+    }
+
+    @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
+    public void video_is_added(String title, String author, String url, String description) throws Throwable {
+        command_is_entered(title);
+        command_is_entered(author);
+        command_is_entered(url);
         command_is_entered(description);
     }
     

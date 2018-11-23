@@ -44,8 +44,9 @@ public class ItemController {
 	public List<String> addItem() {
 		List<String> args = new ArrayList<String>();
 		args.add(io.readLine("Title: "));
-		args.add(io.readLine("Author: "));
-		args.add(io.readLine("Url: "));
+		args.add(io.readLine("Author (leave empty to skip): "));
+		args.add(io.readLine("Url (leave empty to skip): "));
+		args.add(io.readLine("Description (leave empty to skip): "));
 		return args;
 	}
 
@@ -74,32 +75,28 @@ public class ItemController {
     public void addBook() {
 		List<String> itemArgs = addItem();
 		String isbn = io.readLine("ISBN (leave empty to skip):");
-		String description = io.readLine("Description (leave empty to skip):");
-		Book book = new Book(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
+		Book book = new Book(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		if (!isbn.equals("")) {
 			book.setIsbn(isbn);
-		}
-		if (!description.equals("")) {
-			book.setDescription(description);
 		}
 		itemDao.addItem(book);
     }
 
     public void addVideo() {
 		List<String> itemArgs = addItem();
-		Video video = new Video(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
+		Video video = new Video(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		itemDao.addItem(video);
     }
 
     public void addBlogPost() {
 		List<String> itemArgs = addItem();
-		BlogPost blogPost = new BlogPost(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
+		BlogPost blogPost = new BlogPost(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		itemDao.addItem(blogPost);
     }
     
     public void addPodcast() {
 		List<String> itemArgs = addItem();
-		Podcast podCast = new Podcast(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2));
+		Podcast podCast = new Podcast(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		itemDao.addItem(podCast);
 	}
 }

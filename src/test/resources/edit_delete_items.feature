@@ -1,6 +1,6 @@
 Feature: As a user I want to edit items
 
-    Scenario: ui works correctly
+    Scenario: ui works correctly when listing
         Given item "Title" "Author" "url" exists in the application
         When items are listed
         And user does nothing
@@ -14,6 +14,27 @@ Feature: As a user I want to edit items
             delete = delete item
             """
         And system will respond with "Book: Title by Author Url: url"
+
+    Scenario: ui works correctly when adding video
+        Given command "new" is entered
+        And command "video" is entered
+        When item "Frozen" "" "" "" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "Welcome to the CS literature recommendation system!"
+        And system will respond with "Title: "
+        And system will respond with "Author (leave empty to skip): "
+        And system will respond with "Url (leave empty to skip): "
+        And system will respond with "Description (leave empty to skip): "
+        And system will respond with 
+            """
+            quit = quit the application
+            new = add a new item
+            list = list items
+            edit = edit item
+            delete = delete item
+            """
+        And system will respond with "Video: Frozen"
 
     Scenario: user can edit a book title
         Given command "edit" is entered

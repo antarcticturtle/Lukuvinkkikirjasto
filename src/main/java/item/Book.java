@@ -1,11 +1,11 @@
 package item;
 
-public class Book extends Base implements Item{
+public class Book extends Base {
     private String isbn;
-    private String description;
+    // private String description;
     
-    public Book(String title, String author, String url) {
-        super(title, author, url);
+    public Book(String title, String author, String url, String description) {
+        super(title, author, url, description);
     }
     
     public String getIsbn() {
@@ -16,13 +16,13 @@ public class Book extends Base implements Item{
         this.isbn = isbn;
     }
     
-    public String getDescription() {
-        return description;
-    }
+    // public String getDescription() {
+    //     return description;
+    // }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    // public void setDescription(String description) {
+    //     this.description = description;
+    // }
 
     @Override
     public String toString() {

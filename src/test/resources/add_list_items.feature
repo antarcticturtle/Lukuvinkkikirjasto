@@ -18,18 +18,34 @@ Feature: As a user I want to add, edit, delete, modify and list items
         And item "Book3" "Author2" "url" exists in the application
         And item "Book4" "Author3" "url2" exists in the application
         When user does nothing
-        Then system will respond with "Book: Book1 by Author1 url"
-        Then system will respond with "Book: Book2 by Author1 url"
-        Then system will respond with "Book: Book3 by Author2 url"
-        Then system will respond with "Book: Book4 by Author3 url2"
+        Then system will respond with "Book: Book1 by Author1 Url: url"
+        Then system will respond with "Book: Book2 by Author1 Url: url"
+        Then system will respond with "Book: Book3 by Author2 Url: url"
+        Then system will respond with "Book: Book4 by Author3 Url: url2"
 
     Scenario: user can add an item
         Given command "new" is entered
         And command "book" is entered
-        When item "NewBook" "SomeAuthor" "url" "isbn" "description" is added
+        When item "NewBook" "SomeAuthor" "url" "description" "isbn" is added
         And items are listed
         And user does nothing
-        Then system will respond with "Book: NewBook by SomeAuthor Url: url Isbn: isbn description"
+        Then system will respond with "Book: NewBook by SomeAuthor Url: url Description: description Isbn: isbn"
+
+    Scenario: user can add a video with all fields
+        Given command "new" is entered
+        And command "video" is entered
+        When item "Frozen" "Disney" "www.disney.com" "Fun movie" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "Video: Frozen by Disney Url: www.disney.com Description: Fun movie"
+
+    Scenario: user can add a video with only title field
+        Given command "new" is entered
+        And command "video" is entered
+        When item "Frozen" "" "" "" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "Video: Frozen"
 
     Scenario: user can add an item
         Given command "new" is entered

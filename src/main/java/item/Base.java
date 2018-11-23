@@ -10,10 +10,11 @@ public class Base implements Item {
 	private String description;
 	private List<String> tags;	
 	
-	public Base(String title, String author, String url) {
+	public Base(String title, String author, String url, String description) {
 		this.title = title;
         this.author = author;
-        this.url = url;
+		this.url = url;
+		this.description = description;
 		this.tags = new ArrayList<>();
 	}
     
@@ -73,26 +74,25 @@ public class Base implements Item {
 		sb.append(this.getClass().getSimpleName());
 		sb.append(": ");
 		sb.append(this.getTitle());
-		if (this.author != null) {
+		if (!this.getAuthor().equals("")) {
 			sb.append(" by ");
 			sb.append(this.getAuthor());
 		}
 
-		if (this.url != null) {
+		if (!this.getUrl().equals("")) {
 			sb.append(" ");
 			sb.append("Url: ");
 			sb.append(this.getUrl());
 		}
 
-        if (this.getDescription() != null) {
+        if (!this.getDescription().equals("")) {
 			sb.append(" ");
 			sb.append("Description: ");
             sb.append(this.getDescription());
 		}
 		return sb.toString();
-		// Book: Title by Author Url: url Description: New Description Isbn: isbn
-		// Book: t by aa Url: u Description: d Isbn: i
-		// Book: t by aa Url: u Description: New Description Isbn: i
+		// Book: NewBook by SomeAuthor Url: url Description: description Isbn: isbn
+		// Book: NewBook by SomeAuthor Url: url Isbn: isbn
 	}
 	
 }
