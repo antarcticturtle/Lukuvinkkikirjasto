@@ -43,7 +43,11 @@ public class ItemController {
 	
 	public List<String> addItem() {
 		List<String> args = new ArrayList<String>();
-		args.add(io.readLine("Title: "));
+		String title = io.readLine("Title: ");
+		while (title.trim().equals("")) {
+			title = io.readLine("Please enter a valid title");
+		}
+		args.add(title);
 		args.add(io.readLine("Author (leave empty to skip): "));
 		args.add(io.readLine("Url (leave empty to skip): "));
 		args.add(io.readLine("Description (leave empty to skip): "));
@@ -51,23 +55,41 @@ public class ItemController {
 	}
 
 	public void editItem() {
+		// This is not a good way to edit an item
+		// Consider adding this fuctionality to your data access object
 		for (Item item : itemDao.getItems()) {
 			io.print(item.toString());
 		}
-		// needs to be converted to int
 		String id = io.readLine("Select the id of the item you want to edit");
+		Item item = null;
+		while (item == null) {
+			try {
+				Integer int_id = Integer.parseInt(id.trim());
+				item = itemDao.deleteItemById(int_id);
+				// if user enter something that can't be converted to int or 
+				// there is no item with that id try again
+			} catch (IndexOutOfBoundsException | NumberFormatException exception) {
+				id = io.readLine("Please enter a valid id");
+			}
+		}
 		String field = io.readLine("Select the field name you want to edit");
 		String new_value = io.readLine("Enter a new value");
-
-		Item item = itemDao.deleteItemById(Integer.parseInt(id));
-		if (field.equals("title")) {
-			item.setTitle(new_value);
-		} else if (field.equals("author")) {
-			item.setAuthor(new_value);
-		} else if (field.equals("url")) {
-			item.setUrl(new_value);
-		} else if (field.equals("description")) {
-			item.setDescription(new_value);
+		Boolean invalid_input = true;
+		// Can't change isbn
+		while (invalid_input) {
+			invalid_input = false;
+			if (field.equals("title")) {
+				item.setTitle(new_value);
+			} else if (field.equals("author")) {
+				item.setAuthor(new_value);
+			} else if (field.equals("url")) {
+				item.setUrl(new_value);
+			} else if (field.equals("description")) {
+				item.setDescription(new_value);
+			}  else {
+				field = io.readLine("Invalid field. Please try again");
+				invalid_input = true;
+			}
 		}
 		itemDao.addItem(item);
 	}

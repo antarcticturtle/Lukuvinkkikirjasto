@@ -54,3 +54,14 @@ Feature: As a user I want to add, edit, delete, modify and list items
         And items are listed
         And user does nothing
         Then system will respond with "Book: NewBook by SomeAuthor Url: url"
+
+    Scenario: user can't add an item with no title
+        Given command "new" is entered
+        And command "book" is entered
+        And command " " is entered
+        # Trying to enter an empty title, should not work
+        When item "Title" "SomeAuthor" "url" "" "" is added
+        #And items are listed
+        And user does nothing
+        Then system will respond with "Please enter a valid title"
+        #Then system will respond with "Book: NewBook by SomeAuthor Url: url"

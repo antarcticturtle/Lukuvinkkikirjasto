@@ -44,6 +44,26 @@ Feature: As a user I want to edit items
         And user does nothing
         And system will respond with "Book: New Title by Author Url: url"
 
+    Scenario: user can't enter a string as a letter to select item to edit
+        Given command "edit" is entered
+        And item "Title" "Author" "url" exists in the application
+        And command "x" is entered
+        When edit commands "0" "title" "New Title" are entered
+        When items are listed
+        And user does nothing
+        And system will respond with "Please enter a valid id"
+        And system will respond with "Book: New Title by Author Url: url"
+
+    Scenario: user can't enter an id that doesn't exist when selecting an item to edit
+        Given command "edit" is entered
+        And item "Title" "Author" "url" exists in the application
+        And command "5" is entered
+        When edit commands "0" "title" "New Title" are entered
+        When items are listed
+        And user does nothing
+        And system will respond with "Please enter a valid id"
+        And system will respond with "Book: New Title by Author Url: url"
+
     Scenario: user can delete an item
         Given command "delete" is entered
         And item "Title" "Author" "url" exists in the application
@@ -68,6 +88,16 @@ Feature: As a user I want to edit items
         When edit commands "0" "author" "New Author" are entered
         When items are listed
         And user does nothing
+        And system will respond with "Book: Title by New Author Url: url"
+
+    Scenario: user can't edit a book field that doesn't exist
+        Given command "edit" is entered
+        And item "Title" "Author" "url" exists in the application
+        And command "0" is entered
+        When edit commands "doesn't exist" "New Author" "author" are entered
+        When items are listed
+        And user does nothing
+        And system will respond with "Invalid field. Please try again"
         And system will respond with "Book: Title by New Author Url: url"
 
     Scenario: user can edit an book description
