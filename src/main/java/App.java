@@ -129,8 +129,10 @@ public class App {
 		io.print("Thank you for using Lukuvinkkikirjasto, hope to see you soon!");
 	}
 
-    public static void main(String[] args) {
-        ItemDao itemDao = new InMemoryItemDao();
+    public static void main(String[] args) throws Exception {
+        Database database = new Database("jdbc:sqlite:items.db");
+        database.init();
+        ItemDao itemDao = new DatabaseItemDao(database);
         IO io = new TextIO();
         ItemController itemController = new ItemController(itemDao, io);
         new App(io, itemDao, itemController).run();

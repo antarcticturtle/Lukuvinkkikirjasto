@@ -2,7 +2,7 @@ package item;
 
 public class Video extends Base {
 
-	public Video(String title, String author, String url, String description) {
-		super(title, author, url, description);
+	public Video(int id, String title, String author, String url, String description) {
+		super(id, title, author, url, description);
 	}
 }

@@ -4,8 +4,8 @@ public class Book extends Base {
     private String isbn;
     // private String description;
     
-    public Book(String title, String author, String url, String description) {
-        super(title, author, url, description);
+    public Book(int id, String title, String author, String url, String description) {
+        super(id, title, author, url, description);
     }
     
     public String getIsbn() {

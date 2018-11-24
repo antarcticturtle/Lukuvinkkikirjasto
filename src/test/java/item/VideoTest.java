@@ -13,7 +13,7 @@ public class VideoTest {
 	
 	@Before
 	public void setUp() {
-		video = new Video("Title", "Author", "Url", "Description");
+		video = new Video(-1, "Title", "Author", "Url", "Description");
 	}
 	
 	@Test

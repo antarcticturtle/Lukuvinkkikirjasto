@@ -9,3 +9,4 @@ bin/
 .classpath
 .vscode/
 nbproject/
+items.db

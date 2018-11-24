@@ -13,7 +13,7 @@ Feature: As a user I want to edit items
             edit = edit item
             delete = delete item
             """
-        And system will respond with "Book: Title by Author Url: url"
+        And system will respond with "(id: -1) Book: Title by Author Url: url"
 
     Scenario: ui works correctly when adding video
         Given command "new" is entered
@@ -34,7 +34,7 @@ Feature: As a user I want to edit items
             edit = edit item
             delete = delete item
             """
-        And system will respond with "Video: Frozen"
+        And system will respond with "(id: -1) Video: Frozen"
 
     Scenario: user can edit a book title
         Given command "edit" is entered
@@ -42,7 +42,7 @@ Feature: As a user I want to edit items
         When edit commands "0" "title" "New Title" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: New Title by Author Url: url"
+        And system will respond with "(id: -1) Book: New Title by Author Url: url"
 
     Scenario: user can't enter a string as a letter to select item to edit
         Given command "edit" is entered
@@ -52,7 +52,7 @@ Feature: As a user I want to edit items
         When items are listed
         And user does nothing
         And system will respond with "Please enter a valid id"
-        And system will respond with "Book: New Title by Author Url: url"
+        And system will respond with "(id: -1) Book: New Title by Author Url: url"
 
     Scenario: user can't enter an id that doesn't exist when selecting an item to edit
         Given command "edit" is entered
@@ -62,7 +62,7 @@ Feature: As a user I want to edit items
         When items are listed
         And user does nothing
         And system will respond with "Please enter a valid id"
-        And system will respond with "Book: New Title by Author Url: url"
+        And system will respond with "(id: -1) Book: New Title by Author Url: url"
 
     Scenario: user can delete an item
         Given command "delete" is entered
@@ -88,7 +88,7 @@ Feature: As a user I want to edit items
         When edit commands "0" "author" "New Author" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by New Author Url: url"
+        And system will respond with "(id: -1) Book: Title by New Author Url: url"
 
     Scenario: user can't edit a book field that doesn't exist
         Given command "edit" is entered
@@ -98,7 +98,7 @@ Feature: As a user I want to edit items
         When items are listed
         And user does nothing
         And system will respond with "Invalid field. Please try again"
-        And system will respond with "Book: Title by New Author Url: url"
+        And system will respond with "(id: -1) Book: Title by New Author Url: url"
 
     Scenario: user can edit an book description
         Given command "edit" is entered
@@ -106,7 +106,7 @@ Feature: As a user I want to edit items
         When edit commands "0" "description" "New Description" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by Author Url: url Description: New Description Isbn: isbn"
+        And system will respond with "(id: -1) Book: Title by Author Url: url Description: New Description Isbn: isbn"
 
     Scenario: user can edit an book title when multiple books exist
         Given command "edit" is entered
@@ -115,5 +115,5 @@ Feature: As a user I want to edit items
         When edit commands "1" "url" "www.youtube.com" are entered
         When items are listed
         And user does nothing
-        And system will respond with "Book: Title by Author Url: url"
-        And system will respond with "Book: Learn Python by Developer Url: www.youtube.com"
+        And system will respond with "(id: -1) Book: Title by Author Url: url"
+        And system will respond with "(id: -1) Book: Learn Python by Developer Url: www.youtube.com"

@@ -97,7 +97,7 @@ public class ItemController {
     public void addBook() {
 		List<String> itemArgs = addItem();
 		String isbn = io.readLine("ISBN (leave empty to skip):");
-		Book book = new Book(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
+		Book book = new Book(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		if (!isbn.equals("")) {
 			book.setIsbn(isbn);
 		}
@@ -106,19 +106,19 @@ public class ItemController {
 
     public void addVideo() {
 		List<String> itemArgs = addItem();
-		Video video = new Video(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
+		Video video = new Video(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		itemDao.addItem(video);
     }
 
     public void addBlogPost() {
 		List<String> itemArgs = addItem();
-		BlogPost blogPost = new BlogPost(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
+		BlogPost blogPost = new BlogPost(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		itemDao.addItem(blogPost);
     }
     
     public void addPodcast() {
 		List<String> itemArgs = addItem();
-		Podcast podCast = new Podcast(itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
+		Podcast podCast = new Podcast(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
 		itemDao.addItem(podCast);
 	}
 }

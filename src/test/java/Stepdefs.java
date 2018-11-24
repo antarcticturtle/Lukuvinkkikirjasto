@@ -25,12 +25,12 @@ public class Stepdefs {
 
     @Given("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void item_exists_in_application(String title, String author, String url) throws Throwable {
-        itemDao.addItem(new Book(title, author, url, ""));
+        itemDao.addItem(new Book(-1, title, author, url, ""));
     }
 
     @Given("^book \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void book_exists_in_application(String title, String author, String url, String isbn, String description) throws Throwable {
-        Book book = new Book(title, author, url, description);
+        Book book = new Book(-1, title, author, url, description);
         book.setIsbn(isbn);
         book.setDescription(description);
         itemDao.addItem(book);
