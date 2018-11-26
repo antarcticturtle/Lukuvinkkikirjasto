@@ -133,6 +133,9 @@ public class DatabaseItemDao implements ItemDao {
     @Override
     public Item deleteItemById(int id) {
         Item item = getItemById(id);
+        if (item == null) {
+            return null;
+        }
         try {
             Connection connection = database.getConnection();
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM Item WHERE id = ?");
