@@ -4,6 +4,9 @@ Ohjelmistotuotanto-miniprojekti 2018
 Travis
 [![Build Status](https://travis-ci.com/antarcticturtle/Lukuvinkkikirjasto.svg?branch=master)](https://travis-ci.com/antarcticturtle/Lukuvinkkikirjasto)
 
+Codecov
+[![codecov](https://codecov.io/gh/antarcticturtle/Lukuvinkkikirjasto/branch/master/graph/badge.svg)](https://codecov.io/gh/antarcticturtle/Lukuvinkkikirjasto)
+
 [Product and Sprint Backlog](https://docs.google.com/spreadsheets/d/1_fpNIoz3RRlVcXJGW_1-ZIt02osNVSdqZ4tlo_d4EaQ/edit?usp=sharing)
 
 ## Definition of done
