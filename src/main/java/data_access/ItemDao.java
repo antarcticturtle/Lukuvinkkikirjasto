@@ -8,4 +8,5 @@ public interface ItemDao {
     Item getItemById(int id);
     void addItem(Item item);
     Item deleteItemById(int id);
+	void editItem(int id, String field, String value);
 }

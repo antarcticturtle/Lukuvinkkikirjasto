@@ -74,47 +74,64 @@ public class ItemController {
     }
 
     public void editItem() {
-        // This is not a good way to edit an item
-        // Consider adding this fuctionality to your data access object
-        for (Item item : itemDao.getItems()) {
-            io.print(item.toString());
-        }
-        String id = io.readLine("Select the id of the item you want to edit");
-        Item item = null;
-        while (item == null) {
-            try {
-                Integer int_id = Integer.parseInt(id.trim());
-                item = itemDao.deleteItemById(int_id);
-                // if user enter something that can't be converted to int or 
-                // there is no item with that id try again
-                if (item == null) {
-                    id = io.readLine("Please enter a valid id");
-                }
-            } catch (Exception exception) {
-                id = io.readLine("Please enter a valid id");
-            }
-        }
-        String field = io.readLine("Select the field name you want to edit (title, author, url, description)");
-        String new_value = io.readLine("Enter a new value");
-        Boolean invalid_input = true;
-        // Can't change isbn
-        while (invalid_input) {
-            invalid_input = false;
-            if (field.equals("title")) {
-                item.setTitle(new_value);
-            } else if (field.equals("author")) {
-                item.setAuthor(new_value);
-            } else if (field.equals("url")) {
-                item.setUrl(new_value);
-            } else if (field.equals("description")) {
-                item.setDescription(new_value);
-            } else {
-                field = io.readLine("Invalid field. Please try again");
-                invalid_input = true;
-            }
-        }
-        itemDao.addItem(item);
+        listItems();
+		
+        String id = askUserForId();
+		if(id.equals("")) return;	//cancel edit if id is empty
+		
+		String field = askUserForField();		
+        String newValue = io.readLine("Enter a new value");
+       
+        itemDao.editItem(Integer.parseInt(id), field, newValue);
     }
+	
+	private String askUserForId() {
+		Item item = null;
+		String id = "";
+        while (item == null) {
+			id = io.readLine("Select the id of the item you want to edit (leave empty to cancel)");
+			
+			if(id.equals("")) return "";
+			
+			try {
+				Integer int_id = Integer.parseInt(id.trim());
+				item = itemDao.getItemById(int_id);
+			} catch (Exception e) {
+				io.print("Please enter a number");
+				continue;
+			}
+
+			if (item == null) {
+				io.print("Please enter a valid id");
+			}
+        }
+		return id;
+	}
+	
+	private String askUserForField() {
+		String field;
+		while(true) {
+			//TODO: Can't change isbn
+			field = io.readLine("Select the field name you want to edit (title, author, url, description)");
+			if(isValidField(field)) {
+				break;
+			} else {
+				io.print("Please enter a valid field");
+			}
+		}
+		return field;
+	}
+	
+	private boolean isValidField(String field) {
+		if(field.equals("title") ||
+				field.equals("author") ||
+				field.equals("url") ||
+				field.equals("description")) {
+			return true;
+		}
+		
+		return false;
+	}
 
     public void addBook() {
         List<String> itemArgs = addItem();

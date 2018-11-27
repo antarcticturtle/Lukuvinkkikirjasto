@@ -28,4 +28,9 @@ public class InMemoryItemDao implements ItemDao {
         items.remove(id);
         return item;
     }
+
+	@Override
+	public void editItem(int id, String field, String value) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 }

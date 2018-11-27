@@ -7,14 +7,27 @@ import java.util.ArrayList;
 import io.*;
 import data_access.*;
 import item.*;
+import java.io.File;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 
 public class Stepdefs {
 
     App app;
     StubIO io;
     List<String> inputLines = new ArrayList<>();
-    ItemDao itemDao = new InMemoryItemDao();
+    ItemDao itemDao;
     ItemController itemController;
+	
+	File testDatabase;
+	
+	@Before
+	public void setUp() throws ClassNotFoundException {
+		testDatabase = new File("cucumberTestdatabase.db");
+        Database database = new Database("jdbc:sqlite:cucumberTestdatabase.db");
+        database.init();
+        this.itemDao = new DatabaseItemDao(database);
+	}
 
     @Given("^user starts the application$")
     public void program_is_start() throws Throwable {
@@ -42,7 +55,7 @@ public class Stepdefs {
     }
 
     @When("^user does nothing$")
-    public void user_does_nothing() {
+    public void user_does_nothing() throws ClassNotFoundException {
         io = new StubIO(inputLines);
         itemController = new ItemController(itemDao, io);
         app = new App(io, itemDao, itemController);
@@ -96,6 +109,11 @@ public class Stepdefs {
     public void system_will_respond_with_newlines(String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(io.getPrints().contains(arg1));
+    }
+	
+	@After
+    public void tearDown() {
+        testDatabase.delete();
     }
 
 }

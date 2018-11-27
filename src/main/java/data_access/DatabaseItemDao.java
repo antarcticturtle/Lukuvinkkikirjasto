@@ -8,6 +8,8 @@ import java.util.List;
 import item.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseItemDao implements ItemDao {
 
@@ -148,5 +150,37 @@ public class DatabaseItemDao implements ItemDao {
         }
         return item;
     }
+
+	@Override
+	public void editItem(int id, String field, String value) {
+		//TODO: Can't change isbn
+		try {
+			Connection connection = database.getConnection();
+			PreparedStatement stmt = null;
+			
+			switch(field) {
+				case "title":
+					stmt = connection.prepareStatement("UPDATE Item SET title = ? WHERE id = ?");
+					break;
+				case "author":
+					stmt = connection.prepareStatement("UPDATE Item SET author = ? WHERE id = ?");
+					break;
+				case "url":
+					stmt = connection.prepareStatement("UPDATE Item SET url = ? WHERE id = ?");
+					break;
+				case "description":
+					stmt = connection.prepareStatement("UPDATE Item SET description = ? WHERE id = ?");
+					break;
+			}
+			
+			stmt.setString(1, value);
+			stmt.setInt(2, id);
+			stmt.executeUpdate();
+            stmt.close();
+            connection.close();
+		} catch (SQLException ex) {
+			System.out.println("Problem occurred while accessing the database");
+		}
+	}
 
 }
