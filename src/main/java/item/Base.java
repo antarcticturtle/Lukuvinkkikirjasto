@@ -97,8 +97,6 @@ public class Base implements Item {
             sb.append(this.getDescription());
         }
         return sb.toString();
-        // Book: NewBook by SomeAuthor Url: url Description: description Isbn: isbn
-        // Book: NewBook by SomeAuthor Url: url Isbn: isbn
     }
     
 }
