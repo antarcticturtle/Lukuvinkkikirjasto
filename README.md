@@ -1,9 +1,10 @@
 # Lukuvinkkikirjasto
 Ohjelmistotuotanto-miniprojekti 2018
 
+Travis
 [![Build Status](https://travis-ci.com/antarcticturtle/Lukuvinkkikirjasto.svg?branch=master)](https://travis-ci.com/antarcticturtle/Lukuvinkkikirjasto)
 
-[Backlog](https://docs.google.com/spreadsheets/d/1_fpNIoz3RRlVcXJGW_1-ZIt02osNVSdqZ4tlo_d4EaQ/edit?usp=sharing)
+[Product and Sprint Backlog](https://docs.google.com/spreadsheets/d/1_fpNIoz3RRlVcXJGW_1-ZIt02osNVSdqZ4tlo_d4EaQ/edit?usp=sharing)
 
 ## Definition of done
 - Acceptance criteria for the user story are defined in product backlog
