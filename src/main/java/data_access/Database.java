@@ -38,8 +38,7 @@ public class Database {
         
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
-            for (String s : statements) {
-                System.out.println("Running command >> " + s);
+            for (String s : statements) {                
                 st.executeUpdate(s);
             }
         } catch (Throwable t) {
