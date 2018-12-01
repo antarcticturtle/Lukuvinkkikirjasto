@@ -1,3 +1,4 @@
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,16 +19,16 @@ public class Stepdefs {
     List<String> inputLines = new ArrayList<>();
     ItemDao itemDao;
     ItemController itemController;
-	
-	File testDatabase;
-	
-	@Before
-	public void setUp() throws ClassNotFoundException {
-		testDatabase = new File("cucumberTestdatabase.db");
+
+    File testDatabase;
+
+    @Before
+    public void setUp() throws ClassNotFoundException {
+        testDatabase = new File("cucumberTestdatabase.db");
         Database database = new Database("jdbc:sqlite:cucumberTestdatabase.db");
         database.init();
         this.itemDao = new DatabaseItemDao(database);
-	}
+    }
 
     @Given("^user starts the application$")
     public void program_is_start() throws Throwable {
@@ -47,6 +48,13 @@ public class Stepdefs {
         book.setIsbn(isbn);
         book.setDescription(description);
         itemDao.addItem(book);
+    }
+
+    @Given("^podcast \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
+    public void podcast_exists_in_application(String title, String author, String url, String description) throws Throwable {
+        Podcast podcast = new Podcast(-1, title, author, url, description);
+        podcast.setDescription(description);
+        itemDao.addItem(podcast);
     }
 
     @Given("^command \"([^\"]*)\" is entered$")
@@ -85,7 +93,7 @@ public class Stepdefs {
         command_is_entered(url);
         command_is_entered(description);
     }
-    
+
     @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" with additional information \"([^\"]*)\" is added$")
     public void item_with_additional_information_is_added(String title, String author, String url, String isbn) throws Throwable {
         command_is_entered(title);
@@ -110,8 +118,8 @@ public class Stepdefs {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(io.getPrints().contains(arg1));
     }
-	
-	@After
+
+    @After
     public void tearDown() {
         testDatabase.delete();
     }

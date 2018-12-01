@@ -116,3 +116,19 @@ Feature: As a user I want to edit items
         And user does nothing
         And system will respond with "(id: 1) Book: Title by Author Url: url"
         And system will respond with "(id: 2) Book: Learn Python by Developer Url: www.youtube.com"
+
+    Scenario: user can edit a book isbn
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "isbn" "New ISBN" are entered
+        When items are listed
+        And user does nothing
+        And system will respond with "(id: 1) Book: Title by Author Url: url Description: description Isbn: New ISBN"
+
+    Scenario: user can't edit the isbn field of an item that is not a book
+        Given command "edit" is entered
+        And podcast "Title" "Author" "url" "description" exists in the application
+        And command "1" is entered
+        When edit commands "isbn" "New ISBN" "title" are entered
+        And user does nothing
+        And system will respond with "Please enter a valid field"

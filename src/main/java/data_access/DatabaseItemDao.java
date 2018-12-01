@@ -153,7 +153,6 @@ public class DatabaseItemDao implements ItemDao {
 
 	@Override
 	public void editItem(int id, String field, String value) {
-		//TODO: Can't change isbn
 		try {
 			Connection connection = database.getConnection();
 			PreparedStatement stmt = null;
@@ -171,6 +170,8 @@ public class DatabaseItemDao implements ItemDao {
 				case "description":
 					stmt = connection.prepareStatement("UPDATE Item SET description = ? WHERE id = ?");
 					break;
+                                case "isbn":
+                                        stmt = connection.prepareStatement("UPDATE Item SET isbn = ? WHERE id = ?");
 			}
 			
 			stmt.setString(1, value);

@@ -75,70 +75,78 @@ public class ItemController {
 
     public void editItem() {
         listItems();
-		
+
         String id = askUserForId();
-		if(id.equals("")) return;	//cancel edit if id is empty
-		
-		String field = askUserForField();		
+        if (id.equals("")) {
+            return;	//cancel edit if id is empty
+        }
+        String field = askUserForField(id);
         String newValue = io.readLine("Enter a new value");
-       
+
         itemDao.editItem(Integer.parseInt(id), field, newValue);
     }
-	
-	private String askUserForId() {
-		Item item = null;
-		String id = "";
-        while (item == null) {
-			id = io.readLine("Select the id of the item you want to edit (leave empty to cancel)");
-			
-			if(id.equals("")) return "";
-			
-			try {
-				Integer int_id = Integer.parseInt(id.trim());
-				item = itemDao.getItemById(int_id);
-			} catch (Exception e) {
-				io.print("Please enter a number");
-				continue;
-			}
 
-			if (item == null) {
-				io.print("Please enter a valid id");
-			}
+    private String askUserForId() {
+        Item item = null;
+        String id = "";
+        while (item == null) {
+            id = io.readLine("Select the id of the item you want to edit (leave empty to cancel)");
+
+            if (id.equals("")) {
+                return "";
+            }
+
+            try {
+                Integer int_id = Integer.parseInt(id.trim());
+                item = itemDao.getItemById(int_id);
+            } catch (Exception e) {
+                io.print("Please enter a number");
+                continue;
+            }
+
+            if (item == null) {
+                io.print("Please enter a valid id");
+            }
         }
-		return id;
-	}
-	
-	private String askUserForField() {
-		String field;
-		while(true) {
-			//TODO: Can't change isbn
-			field = io.readLine("Select the field name you want to edit (title, author, url, description)");
-			if(isValidField(field)) {
-				break;
-			} else {
-				io.print("Please enter a valid field");
-			}
-		}
-		return field;
-	}
-	
-	private boolean isValidField(String field) {
-		if(field.equals("title") ||
-				field.equals("author") ||
-				field.equals("url") ||
-				field.equals("description")) {
-			return true;
-		}
-		
-		return false;
-	}
+        return id;
+    }
+
+    private String askUserForField(String id) {
+        Item item = itemDao.getItemById(Integer.parseInt(id));
+        String field;
+        while (true) {
+            if (item.getClass() == Book.class) {
+                field = io.readLine("Select the field name you want to edit (title, author, url, description, isbn)");
+            } else {
+                field = io.readLine("Select the field name you want to edit (title, author, url, description)");
+            }            
+            if (isValidField(field, item)) {
+                break;
+            } else {
+                io.print("Please enter a valid field");
+            }
+        }
+        return field;
+    }
+
+    private boolean isValidField(String field, Item item) {
+        if (field.equals("title")
+                || field.equals("author")
+                || field.equals("url")
+                || field.equals("description") 
+                || (field.equals("isbn") && item.getClass() == Book.class)) {
+            return true;
+        }
+
+        return false;
+    }
 
     public void addBook() {
         List<String> itemArgs = addItem();
         String isbn = io.readLine("ISBN (leave empty to skip):");
         while (isbn.length() > 20) {
             isbn = io.readLine("Maximum length for isbn is 20 characters. Try again: ");
-        } 
+        }
         Book book = new Book(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
         if (!isbn.equals("")) {
             book.setIsbn(isbn);
