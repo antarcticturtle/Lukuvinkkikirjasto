@@ -22,8 +22,10 @@ public class ItemController {
         if (items.isEmpty()) {
             io.print("No items added yet");
         } else {
-            for (Item item : items) {
-                io.print(item.toString());
+            if (sortby.equals("type, title")) {
+                this.printSeparatedByType(items);
+            } else {
+                this.printNormal(items);
             }
         }
     }
@@ -119,7 +121,7 @@ public class ItemController {
                 field = io.readLine("Select the field name you want to edit (title, author, url, description, isbn)");
             } else {
                 field = io.readLine("Select the field name you want to edit (title, author, url, description)");
-            }            
+            }
             if (isValidField(field, item)) {
                 break;
             } else {
@@ -133,7 +135,7 @@ public class ItemController {
         if (field.equals("title")
                 || field.equals("author")
                 || field.equals("url")
-                || field.equals("description") 
+                || field.equals("description")
                 || (field.equals("isbn") && item.getClass() == Book.class)) {
             return true;
         }
@@ -176,10 +178,27 @@ public class ItemController {
         String sortby = io.readLine("Select an option to sort the list (title/type and title)");
         if (sortby.equals("title")) {
             this.listItems("title");
-        } else if (sortby.equals("type and title")) {            
+        } else if (sortby.equals("type and title")) {
             this.listItems("type, title");
         } else {
             io.print("Invalid option");
+        }
+    }
+
+    private void printNormal(List<Item> items) {
+        for (Item item : items) {
+            io.print(item.toString());
+        }
+    }
+
+    private void printSeparatedByType(List<Item> items) {
+        Class c = null;
+        for (Item item : items) {
+            if (item.getClass() != c) {
+                io.print("\n" + item.getClass().getSimpleName() + "s");
+                c = item.getClass();
+            }
+            io.print(item.toString());
         }
     }
 }
