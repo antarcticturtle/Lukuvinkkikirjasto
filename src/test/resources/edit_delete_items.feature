@@ -10,6 +10,7 @@ Feature: As a user I want to edit items
             quit = quit the application
             new = add a new item
             list = list items
+            list by = sort and list items
             edit = edit item
             delete = delete item
             """
@@ -31,6 +32,7 @@ Feature: As a user I want to edit items
             quit = quit the application
             new = add a new item
             list = list items
+            list by = sort and list items
             edit = edit item
             delete = delete item
             """

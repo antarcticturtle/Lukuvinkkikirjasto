@@ -20,12 +20,16 @@ public class DatabaseItemDao implements ItemDao {
     }
 
     @Override
-    public List<Item> getItems() {
+    public List<Item> getItems(String sortby) {
         List<Item> items = new ArrayList<>();
         try {
             Connection connection = database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Item");
-
+            PreparedStatement stmt = null;
+            if (sortby.equals("")) {
+                stmt = connection.prepareStatement("SELECT * FROM Item");                
+            } else {
+                stmt = connection.prepareStatement("SELECT * FROM Item ORDER BY " + sortby);
+            }
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

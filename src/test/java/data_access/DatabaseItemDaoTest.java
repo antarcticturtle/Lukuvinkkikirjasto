@@ -24,7 +24,7 @@ public class DatabaseItemDaoTest {
     
     @Test
     public void allItemsAreFound() {
-        assertEquals(2, dao.getItems().size());
+        assertEquals(2, dao.getItems("").size());
     }
     
     @Test

@@ -17,8 +17,8 @@ public class ItemController {
         this.io = io;
     }
 
-    public void listItems() {
-        List<Item> items = itemDao.getItems();
+    public void listItems(String sortby) {
+        List<Item> items = itemDao.getItems(sortby);
         if (items.isEmpty()) {
             io.print("No items added yet");
         } else {
@@ -29,7 +29,7 @@ public class ItemController {
     }
 
     public void deleteItem() {
-        for (Item item : itemDao.getItems()) {
+        for (Item item : itemDao.getItems("")) {
             io.print(item.toString());
         }
         String id = io.readLine("Select the id of the item you want to delete");
@@ -74,7 +74,7 @@ public class ItemController {
     }
 
     public void editItem() {
-        listItems();
+        listItems("");
 
         String id = askUserForId();
         if (id.equals("")) {
@@ -170,5 +170,16 @@ public class ItemController {
         List<String> itemArgs = addItem();
         Podcast podCast = new Podcast(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
         itemDao.addItem(podCast);
+    }
+
+    public void sortItems() {
+        String sortby = io.readLine("Select an option to sort the list (title/type and title)");
+        if (sortby.equals("title")) {
+            this.listItems("title");
+        } else if (sortby.equals("type and title")) {            
+            this.listItems("type, title");
+        } else {
+            io.print("Invalid option");
+        }
     }
 }

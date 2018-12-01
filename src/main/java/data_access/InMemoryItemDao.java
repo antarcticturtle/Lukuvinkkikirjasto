@@ -11,7 +11,7 @@ public class InMemoryItemDao implements ItemDao {
         items = new ArrayList<Item>();
     }
 
-    public List<Item> getItems() {
+    public List<Item> getItems(String sortby) {
         return items;
     }
 
