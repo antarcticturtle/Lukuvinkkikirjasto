@@ -41,8 +41,7 @@ public class Database {
             for (String s : statements) {                
                 st.executeUpdate(s);
             }
-        } catch (Throwable t) {
-            System.out.println("Error >> " + t.getMessage());        
+        } catch (Throwable t) {                   
         }        
     }
 
