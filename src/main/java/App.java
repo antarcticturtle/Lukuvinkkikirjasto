@@ -2,7 +2,6 @@
 import io.*;
 import data_access.*;
 import item.*;
-import item.Video;
 
 public class App {
 
@@ -38,23 +37,27 @@ public class App {
                     break;
 
                 case "list":
-                    listItems();
+                    this.itemController.listItems("");
                     break;
 
                 case "list by":
-                    sortItems();
+                    this.itemController.sortItems();
                     break;
+					
+				case "details":
+					this.itemController.detailedItemInformation();
+					break;
 
                 case "edit":
-                    editItem();
+                    itemController.editItem();
                     break;
 
                 case "search":
-                    searchItems();
+                    itemController.searchItems();
                     break;
 
                 case "delete":
-                    deleteItem();
+                    itemController.deleteItem();
                     break;
 
                 default:
@@ -72,6 +75,7 @@ public class App {
                 + "new = add a new item\n"
                 + "list = list items\n"
                 + "list by = sort and list items\n"
+				+ "details = see more detailed information of an item\n"
                 + "edit = edit item\n"
                 + "search = search items\n"
                 + "delete = delete item");
@@ -86,60 +90,24 @@ public class App {
 
         switch (type) {
             case "book":
-                addBook();
+                itemController.addBook();
                 break;
 
             case "video":
-                addVideo();
+                itemController.addVideo();
                 break;
 
             case "blog post":
-                addBlogPost();
+                itemController.addBlogPost();
                 break;
 
             case "podcast":
-                addPodcast();
+                itemController.addPodcast();
                 break;
 
             default:
                 io.print("unknown type");
         }
-    }
-
-    private void editItem() {
-        itemController.editItem();
-    }
-
-    private void deleteItem() {
-        itemController.deleteItem();
-    }
-
-    private void addBook() {
-        itemController.addBook();
-    }
-
-    private void addVideo() {
-        itemController.addVideo();
-    }
-
-    private void addBlogPost() {
-        itemController.addBlogPost();
-    }
-
-    private void addPodcast() {
-        itemController.addPodcast();
-    }
-
-    private void listItems() {
-        this.itemController.listItems("");
-    }
-
-    private void sortItems() {
-        this.itemController.sortItems();
-    }
-
-    private void searchItems() {
-        this.itemController.searchItems();
     }
 
     private void printGoodbye() {
