@@ -12,6 +12,7 @@ Feature: As a user I want to edit items
             list = list items
             list by = sort and list items
             edit = edit item
+            search = search items
             delete = delete item
             """
         And system will respond with "(id: 1) Book: Title by Author Url: url"
@@ -34,6 +35,7 @@ Feature: As a user I want to edit items
             list = list items
             list by = sort and list items
             edit = edit item
+            search = search items
             delete = delete item
             """
         And system will respond with "(id: 1) Video: Frozen"

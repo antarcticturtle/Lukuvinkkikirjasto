@@ -49,6 +49,10 @@ public class App {
                     editItem();
                     break;
 
+                case "search":
+                    searchItems();
+                    break;
+
                 case "delete":
                     deleteItem();
                     break;
@@ -69,6 +73,7 @@ public class App {
                 + "list = list items\n"
                 + "list by = sort and list items\n"
                 + "edit = edit item\n"
+                + "search = search items\n"
                 + "delete = delete item");
     }
 
@@ -131,6 +136,10 @@ public class App {
 
     private void sortItems() {
         this.itemController.sortItems();
+    }
+
+    private void searchItems() {
+        this.itemController.searchItems();
     }
 
     private void printGoodbye() {

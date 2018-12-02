@@ -86,16 +86,6 @@ public class ItemControllerTest {
                 verify(io, times(1)).readLine(eq("Maximum length for url is 500 characters. Try again: "));
                 verify(io, times(1)).readLine(eq("Maximum length for description is 500 characters. Try again: "));
                 verify(io, times(1)).readLine(eq("Maximum length for isbn is 20 characters. Try again: "));
-                // when(io.readLine("Please enter a valid title")).thenReturn("title");
-                // when(io.readLine("Author (leave empty to skip): ")).thenReturn("author");
-                // when(io.readLine("Url (leave empty to skip): ")).thenReturn("url");
-                // when(io.readLine("Description (leave empty to skip): ")).thenReturn("description");
-                // itemController.addPodcast();
-                // Podcast podcast = new Podcast(-1, "title", "author", "url", "description");
-                // ArgumentCaptor<Podcast> podcastCaptor = ArgumentCaptor.forClass(Podcast.class);
-                // verify(itemDao).addItem(podcastCaptor.capture());
-                // assertEquals(podcast.toString(), podcastCaptor.getValue().toString());
-                
         }
 
 

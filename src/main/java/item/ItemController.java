@@ -30,6 +30,11 @@ public class ItemController {
         }
     }
 
+    public void searchItems() {
+        String search = io.readLine("Search the library");
+        io.print("No items found");
+    }
+
     public void deleteItem() {
         for (Item item : itemDao.getItems("")) {
             io.print(item.toString());
