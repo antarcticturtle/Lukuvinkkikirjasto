@@ -31,6 +31,7 @@ public class ItemController {
     }
 
     public String lengthValidator(String searchMessage, String errorMessage, int minLength) {
+        // Generic length validator for user input
         String entry = io.readLine(searchMessage);
         while (entry.trim().length() < minLength) {
             entry = io.readLine(errorMessage);
@@ -39,7 +40,6 @@ public class ItemController {
     }
 
     public void searchItems() {
-        // String search = io.readLine("Search the library");
         String search = lengthValidator("Search the library", "Please enter a keyword", 1);
         io.print("No items found");
     }
