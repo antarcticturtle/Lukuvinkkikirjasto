@@ -111,7 +111,7 @@ Feature: As a user I want to edit items
         When edit commands "1" "description" "New Description" are entered
         When items are listed
         And user does nothing
-        And system will respond with "(id: 1) Book: Title by Author Url: url Description: New Description Isbn: isbn"
+        And system will respond with "(id: 1) Book: Title by Author"
 
     Scenario: user can edit an book title when multiple books exist
         Given command "edit" is entered
@@ -120,8 +120,8 @@ Feature: As a user I want to edit items
         When edit commands "2" "url" "www.youtube.com" are entered
         When items are listed
         And user does nothing
-        And system will respond with "(id: 1) Book: Title by Author Url: url"
-        And system will respond with "(id: 2) Book: Learn Python by Developer Url: www.youtube.com"
+        And system will respond with "(id: 1) Book: Title by Author"
+        And system will respond with "(id: 2) Book: Learn Python by Developer"
 
     Scenario: user can edit a book isbn
         Given command "edit" is entered
@@ -129,7 +129,7 @@ Feature: As a user I want to edit items
         When edit commands "1" "isbn" "New ISBN" are entered
         When items are listed
         And user does nothing
-        And system will respond with "(id: 1) Book: Title by Author Url: url Description: description Isbn: New ISBN"
+        And system will respond with "(id: 1) Book: Title by Author"
 
     Scenario: user can't edit the isbn field of an item that is not a book
         Given command "edit" is entered
