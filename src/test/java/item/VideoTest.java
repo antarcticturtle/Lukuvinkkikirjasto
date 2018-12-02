@@ -26,7 +26,23 @@ public class VideoTest {
     public void aTagCanBeAdded() {
         video.addTag("tag1");
         assertEquals("tag1", video.getTags().get(0));
-    }
+	}
+	
+	@Test
+	public void detailToStringIsCorrect() {
+		String print = "******************************************************\n"
+					   + "(id: -1) Video: Title by Author\n"
+					   + "******************************************************\n"
+					   + "Type:          Video\n"
+					   + "Title:         Title\n"
+					   + "Author:        Author\n"
+					   + "URL:           Url\n"
+					   + "Description:   Description\n"
+					   + "Read:          false\n"
+					   + "******************************************************\n"
+					   + "";
+		assertEquals(print, video.detailedToString());
+	}
 
 	
 }

@@ -27,9 +27,9 @@ Scenario: user can see the detailed information of a video
     Then system will respond with 
         """
         ******************************************************
-        (id: 1) Book: title by author
+        (id: 1) Video: title by author
         ******************************************************
-        Type:          Book
+        Type:          Video
         Title:         title
         Author:        author
         URL:           url

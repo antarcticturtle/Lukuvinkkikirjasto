@@ -49,6 +49,13 @@ public class Stepdefs {
         book.setDescription(description);
         itemDao.addItem(book);
     }
+    
+    @Given("^video \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
+    public void book_exists_in_application(String title, String author, String url, String description) throws Throwable {
+        Video video = new Video(-1, title, author, url, description);
+        video.setDescription(description);
+        itemDao.addItem(video);
+    }
 
     @Given("^podcast \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void podcast_exists_in_application(String title, String author, String url, String description) throws Throwable {
