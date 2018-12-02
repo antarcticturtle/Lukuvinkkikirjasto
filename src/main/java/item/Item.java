@@ -14,4 +14,5 @@ public interface Item {
     void setUrl(String url);
     List<String> getTags();
     void addTag(String tag);
+	String detailedToString();
 }

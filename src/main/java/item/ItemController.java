@@ -203,6 +203,17 @@ public class ItemController {
             io.print("Invalid option");
         }
     }
+	
+	public void detailedItemInformation() {
+		listItems("");
+		String id = askUserForId();
+        if (id.equals("")) {
+            return;	//cancel edit if id is empty
+        }
+		
+		Item item = itemDao.getItemById(Integer.parseInt(id));
+		io.print(item.detailedToString());
+	}
 
     private void printNormal(List<Item> items) {
         for (Item item : items) {
