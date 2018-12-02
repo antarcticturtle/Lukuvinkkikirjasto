@@ -9,4 +9,5 @@ public interface ItemDao {
     void addItem(Item item);
     Item deleteItemById(int id);
     void editItem(int id, String field, String value);
+    List<Item> searchItems(String keyword);
 }

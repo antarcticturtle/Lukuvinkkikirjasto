@@ -2,7 +2,7 @@ Feature: As a user I want to search items
 
     Scenario: if the search query doesn't match any items, a message is presented
         Given command "search" is entered
-        And item "Think Python" "O'Reilly" "www.amazon.com" exists in the application
+        And book "Think Python" "O'Reilly" "www.amazon.com" "0123456789" "Great book to learn Python" exists in the application
         And command "java" is entered
         When user does nothing
         Then system will respond with "Search the library"
@@ -10,7 +10,7 @@ Feature: As a user I want to search items
 
     Scenario: if a user enters an invalid search query a warning message is presented
         Given command "search" is entered
-        And item "Think Python" "O'Reilly" "www.amazon.com" exists in the application
+        And book "Think Python" "O'Reilly" "www.amazon.com" "0123456789" "Great book to learn Python" exists in the application
         And command "" is entered
         And command "java" is entered
         When user does nothing
@@ -20,8 +20,23 @@ Feature: As a user I want to search items
 
     Scenario: only items matching the search query are listed
         Given command "search" is entered
-        And item "Think Python" "O'Reilly" "www.amazon.com" exists in the application
-        And item "Eloquent Javascript" "Marijn Haverbeke" "www.amazon.com" exists in the application
+        And book "Think Python" "O'Reilly" "www.amazon.com" "0123456789" "Great book to learn Python" exists in the application
+        And book "Eloquent Javascript" "Marijn Haverbeke" "www.amazon.com" "555" "Great book to learn Javascript" exists in the application
         And command "Python" is entered
         When user does nothing
-        Then system will respond with "(id: 1) Book: Think Python by O'Reilly Url: www.amazon.com"
+        Then system will respond with "(id: 1) Book: Think Python by O'Reilly Url: www.amazon.com Description: Great book to learn Python Isbn: 0123456789"
+
+    Scenario: search matches any columns
+        Given command "search" is entered
+        And book "Python" "a" "url" "88" "book" exists in the application
+        And book "title" "Python" "url" "88" "book" exists in the application
+        And book "title" "a" "Python" "88" "book" exists in the application
+        And book "title" "a" "url" "Python" "book" exists in the application
+        And book "title" "a" "url" "88" "Python" exists in the application
+        And command "Python" is entered
+        When user does nothing
+        Then system will respond with "(id: 1) Book: Python by a Url: url Description: book Isbn: 88"
+        Then system will respond with "(id: 2) Book: title by Python Url: url Description: book Isbn: 88"
+        Then system will respond with "(id: 3) Book: title by a Url: Python Description: book Isbn: 88"
+        Then system will respond with "(id: 4) Book: title by a Url: url Description: book Isbn: Python"
+        Then system will respond with "(id: 5) Book: title by a Url: url Description: Python Isbn: 88"

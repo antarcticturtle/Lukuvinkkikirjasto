@@ -41,7 +41,12 @@ public class ItemController {
 
     public void searchItems() {
         String search = lengthValidator("Search the library", "Please enter a keyword", 1);
-        io.print("No items found");
+        List<Item> items = itemDao.searchItems(search);
+        if (items.isEmpty()) {
+            io.print("No items found");
+        } else {
+            printNormal(items);
+        }
     }
 
     public void deleteItem() {

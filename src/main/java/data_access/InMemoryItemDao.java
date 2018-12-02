@@ -29,6 +29,10 @@ public class InMemoryItemDao implements ItemDao {
         return item;
     }
 
+    public List<Item> searchItems(String keyword) {
+        return items;
+    }
+
 	@Override
 	public void editItem(int id, String field, String value) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

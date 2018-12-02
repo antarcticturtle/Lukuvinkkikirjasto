@@ -62,6 +62,51 @@ public class DatabaseItemDao implements ItemDao {
         return items;
     }
 
+    public List<Item> searchItems(String keyword) {
+        List<Item> items = new ArrayList<>();
+        try {
+            Connection connection = database.getConnection();
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Item WHERE "
+                                                                 + "(title LIKE ? OR author LIKE ? "
+                                                                 + "OR description LIKE ? OR url LIKE ? "
+                                                                 + "OR isbn LIKE ?)");
+            stmt.setString(1, "%" + keyword + "%");
+            stmt.setString(2, "%" + keyword + "%");
+            stmt.setString(3, "%" + keyword + "%");
+            stmt.setString(4, "%" + keyword + "%");
+            stmt.setString(5, "%" + keyword + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String type = rs.getString("type");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String url = rs.getString("url");
+                String description = rs.getString("description");
+                String isbn = rs.getString("isbn");
+                Boolean read = rs.getBoolean("read");
+                if (type.equals("book")) {
+                    Book b = new Book(id, title, author, url, description);
+                    b.setIsbn(isbn);
+                    items.add(b);
+                } else if (type.equals("video")) {
+                    items.add(new Video(id, title, author, url, description));
+                } else if (type.equals("podcast")) {
+                    items.add(new Podcast(id, title, author, url, description));
+                } else {
+                    items.add(new BlogPost(id, title, author, url, description));
+                }
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return items;
+    }
+
     @Override
     public Item getItemById(int id) {
         try {
