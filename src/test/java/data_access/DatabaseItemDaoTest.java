@@ -34,13 +34,13 @@ public class DatabaseItemDaoTest {
     
     @Test
     public void itemCanBeFoundById() {
-        assertEquals("(id: 1) Book: Title by Author Url: url Description: description", dao.getItemById(1).toString());
+        assertEquals("(id: 1) Book: Title by Author", dao.getItemById(1).toString());
     }
     
     @Test
     public void itemCanBeAdded() {
         dao.addItem(new Video(3, "Title3", "Author3", "url3", "description3"));
-        assertEquals("(id: 3) Video: Title3 by Author3 Url: url3 Description: description3", dao.getItemById(3).toString());
+        assertEquals("(id: 3) Video: Title3 by Author3", dao.getItemById(3).toString());
     }
     
     @Test

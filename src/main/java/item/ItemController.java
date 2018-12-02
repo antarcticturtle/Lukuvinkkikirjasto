@@ -111,7 +111,7 @@ public class ItemController {
         Item item = null;
         String id = "";
         while (item == null) {
-            id = io.readLine("Select the id of the item you want to edit (leave empty to cancel)");
+            id = io.readLine("Enter the id of the item (leave empty to cancel)");
 
             if (id.equals("")) {
                 return "";

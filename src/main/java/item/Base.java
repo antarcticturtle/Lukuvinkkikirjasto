@@ -73,10 +73,14 @@ public class Base implements Item {
         this.tags.add(tag);
     }
 
+	public boolean isRead() {
+		return read;
+	}
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("(id: " + this.id+ ") ");
+        sb.append("(id: ").append(this.id).append(") ");
         sb.append(this.getClass().getSimpleName());
         sb.append(": ");
         sb.append(this.getTitle());

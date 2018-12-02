@@ -61,6 +61,13 @@ public class Stepdefs {
     public void command_is_entered(String command) {
         inputLines.add(command);
     }
+	
+	@Given("^command \"([^\"]*)\" with id (\\d+) is entered$")
+    public void command_with_id_is_entered(String command, int id) {
+        inputLines.add(command);
+		inputLines.add(Integer.toString(id));
+    }
+
 
     @When("^user does nothing$")
     public void user_does_nothing() throws ClassNotFoundException {

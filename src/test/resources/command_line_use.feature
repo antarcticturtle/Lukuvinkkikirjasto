@@ -9,3 +9,8 @@ Feature: As a user I want to use the application through command line interface
         Given command "new" is entered
         When user does nothing
         Then system will respond with "Type: (book, video, blog post, podcast)"
+
+    Scenario: user can exit the program
+        Given command "quit" is entered
+        When user does nothing
+        Then system will respond with "Thank you for using Lukuvinkkikirjasto, hope to see you soon!"
