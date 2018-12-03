@@ -36,9 +36,19 @@ Feature: As a user I want to add items
         Given command "new" is entered
         And command "book" is entered
         And command " " is entered
-        # Trying to enter an empty title, should not work
         When item "Title" "SomeAuthor" "url" "" "" is added
-        #And items are listed
         And user does nothing
         Then system will respond with "Please enter a valid title"
-        #Then system will respond with "Book: NewBook by SomeAuthor"
+
+    Scenario: ui works correctly when adding video
+        Given command "new" is entered
+        And command "video" is entered
+        When item "Frozen" "" "" "" is added
+        And items are listed
+        And user does nothing
+        Then system will respond with "Welcome to the CS literature recommendation system!"
+        And system will respond with "Title: "
+        And system will respond with "Author (leave empty to skip): "
+        And system will respond with "Url (leave empty to skip): "
+        And system will respond with "Description (leave empty to skip): "
+        And system will respond with "(id: 1) Video: Frozen"
