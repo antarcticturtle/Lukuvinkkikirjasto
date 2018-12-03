@@ -20,6 +20,7 @@ public class App {
 
         boolean goOn = true;
         while (goOn) {
+			io.print("");
             String command = askForCommand();
             io.print("");
 
@@ -31,6 +32,10 @@ public class App {
                 case "":
                     goOn = false;
                     break;
+					
+				case "help":
+					printCommands();
+					break;
 
                 case "new":
                     addItem();
@@ -64,14 +69,19 @@ public class App {
                     io.print("unknown option");
                     break;
             }
-            io.print("");
+            //io.print("");
         }
 
         printGoodbye();
     }
 
     private String askForCommand() {
-        return io.readLine("quit = quit the application\n"
+        return io.readLine("Next command (write 'help' to see the commands):");
+    }
+	
+	private void printCommands() {
+		io.print("quit = quit the application\n"
+				+ "help = see these commands\n"
                 + "new = add a new item\n"
                 + "list = list items\n"
                 + "list by = sort and list items\n"
@@ -79,10 +89,11 @@ public class App {
                 + "edit = edit item\n"
                 + "search = search items\n"
                 + "delete = delete item");
-    }
+	}
 
     private void printGreeting() {
         io.print("Welcome to the CS literature recommendation system!");
+		io.print("Write 'help' to see the commands.");
     }
 
     private void addItem() {

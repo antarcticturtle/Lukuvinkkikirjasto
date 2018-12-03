@@ -4,19 +4,7 @@ Feature: As a user I want to edit items
         Given item "Title" "Author" "url" exists in the application
         When items are listed
         And user does nothing
-        Then system will respond with "Welcome to the CS literature recommendation system!"
-        And system will respond with 
-            """
-            quit = quit the application
-            new = add a new item
-            list = list items
-            list by = sort and list items
-            details = see more detailed information of an item
-            edit = edit item
-            search = search items
-            delete = delete item
-            """
-        And system will respond with "(id: 1) Book: Title by Author"
+        Then system will respond with "(id: 1) Book: Title by Author"
 
     Scenario: ui works correctly when adding video
         Given command "new" is entered
@@ -29,17 +17,6 @@ Feature: As a user I want to edit items
         And system will respond with "Author (leave empty to skip): "
         And system will respond with "Url (leave empty to skip): "
         And system will respond with "Description (leave empty to skip): "
-        And system will respond with 
-            """
-            quit = quit the application
-            new = add a new item
-            list = list items
-            list by = sort and list items
-            details = see more detailed information of an item
-            edit = edit item
-            search = search items
-            delete = delete item
-            """
         And system will respond with "(id: 1) Video: Frozen"
 
     Scenario: user can edit a book title
