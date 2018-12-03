@@ -109,9 +109,23 @@ Feature: As a user I want to edit items
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "description" "New Description" are entered
-        When items are listed
+        When command "details" with id 1 is entered
         And user does nothing
-        And system will respond with "(id: 1) Book: Title by Author"
+        Then system will respond with
+        """
+        ******************************************************
+        (id: 1) Book: Title by Author
+        ******************************************************
+        Type:          Book
+        Title:         Title
+        Author:        Author
+        URL:           url
+        Description:   New Description
+        Read:          false
+        ISBN:          isbn
+        ******************************************************
+
+        """
 
     Scenario: user can edit an book title when multiple books exist
         Given command "edit" is entered
@@ -127,9 +141,23 @@ Feature: As a user I want to edit items
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "isbn" "New ISBN" are entered
-        When items are listed
+        When command "details" with id 1 is entered
         And user does nothing
-        And system will respond with "(id: 1) Book: Title by Author"
+        Then system will respond with
+        """
+        ******************************************************
+        (id: 1) Book: Title by Author
+        ******************************************************
+        Type:          Book
+        Title:         Title
+        Author:        Author
+        URL:           url
+        Description:   description
+        Read:          false
+        ISBN:          New ISBN
+        ******************************************************
+
+        """
 
     Scenario: user can't edit the isbn field of an item that is not a book
         Given command "edit" is entered
