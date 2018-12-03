@@ -45,3 +45,8 @@ Feature: As a user I want to list items
         Then system will respond with print sequence "(id: 1) Book: The Cyberiad by Stanislaw Lem" "(id: 4) Book: The war of the worlds by H. G. Wells" "(id: 3) Book: War with the newts by Karel Capek"
         And system will respond with print sequence "(id: 5) Podcast: AnotherPodcast by Author2" "(id: 2) Podcast: OnePodcast by Author1" "(id: 6) Podcast: YetAnotherPodcast by Author3"
 
+    Scenario: ui works correctly when listing
+        Given item "Title" "Author" "url" exists in the application
+        When items are listed
+        And user does nothing
+        Then system will respond with "(id: 1) Book: Title by Author"
