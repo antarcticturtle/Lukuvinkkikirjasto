@@ -118,7 +118,19 @@ public class Stepdefs {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(io.getPrints().contains(arg1));
     }
-
+    
+    @Then("^system will respond with print sequence \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+    public void system_will_respond_with_print_sequence(String print1, String print2, String print3) throws Throwable {
+        int firstIndex = 0;
+        for (int i = 0; i < io.getPrints().size(); i ++) {
+            if (io.getPrints().get(i).equals(print1)) {
+                firstIndex = i;
+            }
+        }
+        assertEquals(print2, io.getPrints().get(firstIndex + 1));
+        assertEquals(print3, io.getPrints().get(firstIndex + 2));       
+    }
+    
     @After
     public void tearDown() {
         testDatabase.delete();
