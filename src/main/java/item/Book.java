@@ -15,24 +15,63 @@ public class Book extends Base {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    
-    // public String getDescription() {
-    //     return description;
-    // }
 
-    // public void setDescription(String description) {
-    //     this.description = description;
-    // }
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(super.toString());
+//        if (isbn != null) {
+//            sb.append(" Isbn: ");
+//            sb.append(this.getIsbn());
+//        }
+//        return sb.toString();
+//    }
+	
+	@Override
+	public String detailedToString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.detailedToString());
+		sb.append(addSpaces("ISBN:"));
+		sb.append(this.getIsbn());
+		sb.append("\n");
+		sb.append(getLineOfAsterisks());
+		return sb.toString();
+		// StringBuilder sb = new StringBuilder();
+		// sb.append(getLineOfAsterisks());
+		// sb.append(this.toString()).append("\n");
+		// sb.append(getLineOfAsterisks());
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
-        if (isbn != null) {
-            sb.append(" Isbn: ");
-            sb.append(this.getIsbn());
-        }
-        return sb.toString();
-    }
+		// sb.append(addSpaces("Type:"));
+		// sb.append(this.getClass().getSimpleName());
+		// sb.append("\n");
+		
+		// sb.append(addSpaces("Title:"));
+		// sb.append(this.getTitle());
+		// sb.append("\n");
+
+		// sb.append(addSpaces("Author:"));
+		// sb.append(this.getAuthor());
+		// sb.append("\n");
+
+		// sb.append(addSpaces("URL:"));
+		// sb.append(this.getUrl());
+		// sb.append("\n");
+
+		// sb.append(addSpaces("Description:"));
+		// sb.append(this.getDescription());
+		// sb.append("\n");
+
+		// sb.append(addSpaces("ISBN:"));
+		// sb.append(this.getIsbn());
+		// sb.append("\n");
+
+		// sb.append(addSpaces("Read:"));
+		// sb.append(this.isRead());
+		// sb.append("\n");
+		
+		// sb.append(getLineOfAsterisks());
+		
+		// return sb.toString();
+	}
     
 }

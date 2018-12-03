@@ -6,7 +6,7 @@ Feature: As a user I want to add items
         When item "NewBook" "SomeAuthor" "url" "description" "isbn" is added
         And items are listed
         And user does nothing
-        Then system will respond with "(id: 1) Book: NewBook by SomeAuthor Url: url Description: description Isbn: isbn"
+        Then system will respond with "(id: 1) Book: NewBook by SomeAuthor"
 
     Scenario: user can add a video with all fields
         Given command "new" is entered
@@ -14,7 +14,7 @@ Feature: As a user I want to add items
         When item "Frozen" "Disney" "www.disney.com" "Fun movie" is added
         And items are listed
         And user does nothing
-        Then system will respond with "(id: 1) Video: Frozen by Disney Url: www.disney.com Description: Fun movie"
+        Then system will respond with "(id: 1) Video: Frozen by Disney"
 
     Scenario: user can add a video with only title field
         Given command "new" is entered
@@ -30,7 +30,7 @@ Feature: As a user I want to add items
         When item "NewBook" "SomeAuthor" "url" "" "" is added
         And items are listed
         And user does nothing
-        Then system will respond with "(id: 1) Book: NewBook by SomeAuthor Url: url"
+        Then system will respond with "(id: 1) Book: NewBook by SomeAuthor"
 
     Scenario: user can't add an item with no title
         Given command "new" is entered
@@ -41,4 +41,4 @@ Feature: As a user I want to add items
         #And items are listed
         And user does nothing
         Then system will respond with "Please enter a valid title"
-        #Then system will respond with "Book: NewBook by SomeAuthor Url: url"
+        #Then system will respond with "Book: NewBook by SomeAuthor"

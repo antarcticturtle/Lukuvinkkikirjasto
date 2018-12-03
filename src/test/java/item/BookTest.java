@@ -16,7 +16,7 @@ public class BookTest {
     
     @Test 
     public void bookIsCreatedWithNameAndAuthor() {
-        assertEquals("(id: -1) Book: Name by Author Url: Url Description: Description", book.toString());
+        assertEquals("(id: -1) Book: Name by Author", book.toString());
     }
     
     @Test 

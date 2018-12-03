@@ -49,6 +49,13 @@ public class Stepdefs {
         book.setDescription(description);
         itemDao.addItem(book);
     }
+    
+    @Given("^video \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
+    public void book_exists_in_application(String title, String author, String url, String description) throws Throwable {
+        Video video = new Video(-1, title, author, url, description);
+        video.setDescription(description);
+        itemDao.addItem(video);
+    }
 
     @Given("^podcast \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void podcast_exists_in_application(String title, String author, String url, String description) throws Throwable {
@@ -61,6 +68,13 @@ public class Stepdefs {
     public void command_is_entered(String command) {
         inputLines.add(command);
     }
+	
+	@Given("^command \"([^\"]*)\" with id (\\d+) is entered$")
+    public void command_with_id_is_entered(String command, int id) {
+        inputLines.add(command);
+		inputLines.add(Integer.toString(id));
+    }
+
 
     @When("^user does nothing$")
     public void user_does_nothing() throws ClassNotFoundException {

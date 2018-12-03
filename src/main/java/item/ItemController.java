@@ -111,7 +111,7 @@ public class ItemController {
         Item item = null;
         String id = "";
         while (item == null) {
-            id = io.readLine("Select the id of the item you want to edit (leave empty to cancel)");
+            id = io.readLine("Enter the id of the item (leave empty to cancel)");
 
             if (id.equals("")) {
                 return "";
@@ -203,6 +203,17 @@ public class ItemController {
             io.print("Invalid option");
         }
     }
+	
+	public void detailedItemInformation() {
+		listItems("");
+		String id = askUserForId();
+        if (id.equals("")) {
+            return;	//cancel edit if id is empty
+        }
+		
+		Item item = itemDao.getItemById(Integer.parseInt(id));
+		io.print(item.detailedToString());
+	}
 
     private void printNormal(List<Item> items) {
         for (Item item : items) {
