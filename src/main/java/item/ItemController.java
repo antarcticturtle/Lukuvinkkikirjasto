@@ -194,7 +194,7 @@ public class ItemController {
     }
 
     public void sortItems() {
-        String sortby = io.readLine("Select an option to sort the list (title/type and title)");
+        String sortby = io.readLine("Select an option to sort the list (\"type and title\" or \"title)\"");
         if (sortby.equals("title")) {
             this.listItems("title");
         } else if (sortby.equals("type and title")) {
