@@ -104,6 +104,48 @@ Feature: As a user I want to edit items
         Given command "edit" is entered
         And podcast "Title" "Author" "url" "description" exists in the application
         And command "1" is entered
-        When edit commands "isbn" "New ISBN" "title" are entered
+        When edit commands "isbn" "title" "new title" are entered
         And user does nothing
         And system will respond with "Please enter a valid field"
+
+    Scenario: user has to enter a title when editing a book
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "title" with invalid value "" and valid value "new title" are entered
+        And user does nothing
+        Then system will respond with "Please enter a valid title (1-50 characters)"
+
+    Scenario: user can't enter a title that is over 50 characters when editing a book
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "title" with too long "51" characters and valid value "new title" are entered
+        And user does nothing
+        Then system will respond with "Please enter a valid title (1-50 characters)"
+
+    Scenario: user can't enter an author that is over 50 characters when editing a book
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "author" with too long "51" characters and valid value "new author" are entered
+        And user does nothing
+        Then system will respond with "Please enter a valid author (0-50 characters)"
+
+    Scenario: user can't enter a url that is over 500 characters when editing a book
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "url" with too long "501" characters and valid value "new url" are entered
+        And user does nothing
+        Then system will respond with "Please enter a valid url (0-500 characters)"
+
+    Scenario: user can't enter a description that is over 500 characters when editing a book
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "description" with too long "501" characters and valid value "new description" are entered
+        And user does nothing
+        Then system will respond with "Please enter a valid description (0-500 characters)"
+
+    Scenario: user can't enter an isbn that is over 20 characters when editing a book
+        Given command "edit" is entered
+        And book "Title" "Author" "url" "isbn" "description" exists in the application
+        When edit commands "1" "isbn" with too long "21" characters and valid value "new description" are entered
+        And user does nothing
+        Then system will respond with "Please enter a valid isbn (0-20 characters)"

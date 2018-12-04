@@ -30,17 +30,17 @@ public class ItemController {
         }
     }
 
-    public String lengthValidator(String searchMessage, String errorMessage, int minLength) {
+    public String lengthValidator(String searchMessage, String errorMessage, int minLength, int maxLength) {
         // Generic length validator for user input
         String entry = io.readLine(searchMessage);
-        while (entry.trim().length() < minLength) {
+        while (entry.trim().length() < minLength || entry.trim().length() > maxLength) {
             entry = io.readLine(errorMessage);
         }
         return entry;
     }
 
     public void searchItems() {
-        String search = lengthValidator("Search the library", "Please enter a keyword", 1);
+        String search = lengthValidator("Search the library", "Please enter a keyword", 1, 50);
         List<Item> items = itemDao.searchItems(search);
         if (items.isEmpty()) {
             io.print("No items found");
@@ -72,24 +72,27 @@ public class ItemController {
         while (title.trim().equals("")) {
             title = io.readLine("Please enter a valid title");
         }
+        // title = lengthValidator("Please enter a valid title", "Maximum length for title is 50 characters. Try again: ", 1, 50);
         while (title.length() > 50) {
             title = io.readLine("Maximum length for title is 50 characters. Try again: ");
         }
         args.add(title);
-        String author = io.readLine("Author (leave empty to skip): ");
-        while (author.length() > 50) {
-            author = io.readLine("Maximum length for author is 50 characters. Try again: ");
-        }
+        String author = lengthValidator("Author (leave empty to skip): ",
+                                        "Maximum length for author is 50 characters. Try again: ",
+                                        0,
+                                        50);
         args.add(author);
-        String url = io.readLine("Url (leave empty to skip): ");
-        while (url.length() > 500) {
-            url = io.readLine("Maximum length for url is 500 characters. Try again: ");
-        }
+
+        String url = lengthValidator("Url (leave empty to skip): ",
+                                     "Maximum length for url is 500 characters. Try again: ",
+                                     0,
+                                     500);
         args.add(url);
-        String description = io.readLine("Description (leave empty to skip): ");
-        while (description.length() > 500) {
-            description = io.readLine("Maximum length for description is 500 characters. Try again: ");
-        }
+        
+        String description = lengthValidator("Description (leave empty to skip): ",
+                                     "Maximum length for description is 500 characters. Try again: ",
+                                     0,
+                                     500);
         args.add(description);
         return args;
     }
@@ -102,9 +105,27 @@ public class ItemController {
             return;	//cancel edit if id is empty
         }
         String field = askUserForField(id);
-        String newValue = io.readLine("Enter a new value");
+        String newValue = askUserForValue(field);
 
         itemDao.editItem(Integer.parseInt(id), field, newValue);
+    }
+
+    private String askUserForValue(String field) {
+        String newValue = "";
+        if (field.equals("title")) {
+            newValue = lengthValidator("Enter a new title", "Please enter a valid title (1-50 characters)", 1, 50);
+        } else if (field.equals("author")) {
+            newValue = lengthValidator("Enter a new author", "Please enter a valid author (0-50 characters)", 0, 50);
+        } else if (field.equals("url")) {
+            newValue = lengthValidator("Enter a new url", "Please enter a valid url (0-500 characters)", 0, 500);
+        } else if (field.equals("description")) {
+            newValue = lengthValidator("Enter a new description", "Please enter a valid description (0-500 characters)", 0, 500);
+        } else if (field.equals("isbn")) {
+            newValue = lengthValidator("Enter a new isbn", "Please enter a valid isbn (0-20 characters)", 0, 20);
+        } else {
+            newValue = io.readLine("Enter a new value");
+        }
+        return newValue;
     }
 
     private String askUserForId() {
@@ -164,10 +185,10 @@ public class ItemController {
 
     public void addBook() {
         List<String> itemArgs = addItem();
-        String isbn = io.readLine("ISBN (leave empty to skip):");
-        while (isbn.length() > 20) {
-            isbn = io.readLine("Maximum length for isbn is 20 characters. Try again: ");
-        }
+        String isbn = lengthValidator("ISBN (leave empty to skip):",
+                                      "Maximum length for isbn is 20 characters. Try again: ",
+                                      0,
+                                      20);
         Book book = new Book(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
         if (!isbn.equals("")) {
             book.setIsbn(isbn);

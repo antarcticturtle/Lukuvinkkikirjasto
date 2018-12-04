@@ -91,6 +91,26 @@ public class Stepdefs {
         command_is_entered(edited);
     }
 
+    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" with too long \"([^\"]*)\" characters and valid value \"([^\"]*)\" are entered$")
+    public void edit_commands_too_long(String id, String field, int characters, String valid) throws Throwable {
+        command_is_entered(id);
+        command_is_entered(field);
+        StringBuilder sb = new StringBuilder();
+        for (int x = 0; x < characters; x++) {
+            sb.append("T");
+        }
+        command_is_entered(sb.toString());
+        command_is_entered(valid);
+    }
+
+    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" with invalid value \"([^\"]*)\" and valid value \"([^\"]*)\" are entered$")
+    public void edit_commands(String id, String field, String invalid, String valid) throws Throwable {
+        command_is_entered(id);
+        command_is_entered(field);
+        command_is_entered(invalid);
+        command_is_entered(valid);
+    }
+
     @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
     public void item_is_added(String title, String author, String url, String isbn, String description) throws Throwable {
         command_is_entered(title);
