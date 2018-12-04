@@ -28,7 +28,7 @@ public class DatabaseItemDao implements ItemDao {
             if (sortby.equals("")) {
                 stmt = connection.prepareStatement("SELECT * FROM Item");                
             } else {
-                stmt = connection.prepareStatement("SELECT * FROM Item ORDER BY " + sortby);
+                stmt = connection.prepareStatement("SELECT * FROM Item ORDER BY " + sortby + " COLLATE NOCASE");
             }
             ResultSet rs = stmt.executeQuery();
 
