@@ -41,16 +41,25 @@ public class DatabaseItemDao implements ItemDao {
                 String description = rs.getString("description");
                 String isbn = rs.getString("isbn");
                 Boolean read = rs.getBoolean("read");
-                if (type.equals("book")) {
-                    Book b = new Book(id, title, author, url, description);
-                    b.setIsbn(isbn);
-                    items.add(b);
-                } else if (type.equals("video")) {
-                    items.add(new Video(id, title, author, url, description));
-                } else if (type.equals("podcast")) {
-                    items.add(new Podcast(id, title, author, url, description));
-                } else {
-                    items.add(new BlogPost(id, title, author, url, description));
+                switch (type) {
+                    case "book": {
+                        Book b = new Book(id, title, author, url, description);
+                        b.setIsbn(isbn);
+                        items.add(b);
+                        break;
+                    }
+                    case "video": {
+                        items.add(new Video(id, title, author, url, description));
+                        break;
+                    }
+                    case "podcast": {
+                        items.add(new Podcast(id, title, author, url, description));
+                        break;
+                    }
+                    default: {
+                        items.add(new BlogPost(id, title, author, url, description));
+                        break;
+                    }
                 }
             }
             rs.close();
