@@ -99,33 +99,39 @@ public class ItemController {
 
     public void editItem() {
         listItems("");
-
         String id = askUserForId();
         if (id.equals("")) {
             return;	//cancel edit if id is empty
+        }              
+        this.editField("title", id);
+        this.editField("author", id);
+        this.editField("url", id);
+        this.editField("description", id);
+        Item item = itemDao.getItemById(Integer.parseInt(id));
+        if (item.getClass() == Book.class) {
+            this.editField("isbn", id);
         }
-        String field = askUserForField(id);
-        String newValue = askUserForValue(field);
-
-        itemDao.editItem(Integer.parseInt(id), field, newValue);
+        
     }
 
-    private String askUserForValue(String field) {
+    private void editField(String field, String id) {
         String newValue = "";
         if (field.equals("title")) {
-            newValue = lengthValidator("Enter a new title", "Please enter a valid title (1-50 characters)", 1, 50);
+            newValue = lengthValidator("Enter a new title (leave empty to skip)", "Please enter a valid title (1-50 characters)", 0, 50);
         } else if (field.equals("author")) {
-            newValue = lengthValidator("Enter a new author", "Please enter a valid author (0-50 characters)", 0, 50);
+            newValue = lengthValidator("Enter a new author (leave empty to skip)", "Please enter a valid author (0-50 characters)", 0, 50);
         } else if (field.equals("url")) {
-            newValue = lengthValidator("Enter a new url", "Please enter a valid url (0-500 characters)", 0, 500);
+            newValue = lengthValidator("Enter a new url (leave empty to skip)", "Please enter a valid url (0-500 characters)", 0, 500);
         } else if (field.equals("description")) {
-            newValue = lengthValidator("Enter a new description", "Please enter a valid description (0-500 characters)", 0, 500);
+            newValue = lengthValidator("Enter a new description (leave empty to skip)", "Please enter a valid description (0-500 characters)", 0, 500);
         } else if (field.equals("isbn")) {
-            newValue = lengthValidator("Enter a new isbn", "Please enter a valid isbn (0-20 characters)", 0, 20);
+            newValue = lengthValidator("Enter a new isbn (leave empty to skip)", "Please enter a valid isbn (0-20 characters)", 0, 20);
         } else {
             newValue = io.readLine("Enter a new value");
         }
-        return newValue;
+        if (!newValue.equals("")) {
+            itemDao.editItem(Integer.parseInt(id), field, newValue);
+        }        
     }
 
     private String askUserForId() {
@@ -151,36 +157,6 @@ public class ItemController {
             }
         }
         return id;
-    }
-
-    private String askUserForField(String id) {
-        Item item = itemDao.getItemById(Integer.parseInt(id));
-        String field;
-        while (true) {
-            if (item.getClass() == Book.class) {
-                field = io.readLine("Select the field name you want to edit (title, author, url, description, isbn)");
-            } else {
-                field = io.readLine("Select the field name you want to edit (title, author, url, description)");
-            }
-            if (isValidField(field, item)) {
-                break;
-            } else {
-                io.print("Please enter a valid field");
-            }
-        }
-        return field;
-    }
-
-    private boolean isValidField(String field, Item item) {
-        if (field.equals("title")
-                || field.equals("author")
-                || field.equals("url")
-                || field.equals("description")
-                || (field.equals("isbn") && item.getClass() == Book.class)) {
-            return true;
-        }
-
-        return false;
     }
 
     public void addBook() {

@@ -3,7 +3,7 @@ Feature: As a user I want to edit items
     Scenario: user can edit a book title
         Given command "edit" is entered
         And item "Title" "Author" "url" exists in the application
-        When edit commands "1" "title" "New Title" are entered
+        When edit commands "1" "New Title" "" "" "" "" are entered
         When items are listed
         And user does nothing
         And system will respond with "(id: 1) Book: New Title by Author"
@@ -12,7 +12,7 @@ Feature: As a user I want to edit items
         Given command "edit" is entered
         And item "Title" "Author" "url" exists in the application
         And command "x" is entered
-        When edit commands "1" "title" "New Title" are entered
+        When edit commands "1" "New Title" "" "" "" "" are entered
         When items are listed
         And user does nothing
         And system will respond with "Please enter a number"
@@ -22,7 +22,7 @@ Feature: As a user I want to edit items
         Given command "edit" is entered
         And item "Title" "Author" "url" exists in the application
         And command "5" is entered
-        When edit commands "0" "title" "New Title" are entered
+        When edit commands "0" "New Title" "" "" "" "" are entered
         When items are listed
         And user does nothing
         And system will respond with "Please enter a valid id"
@@ -31,25 +31,15 @@ Feature: As a user I want to edit items
     Scenario: user can edit an book author
         Given command "edit" is entered
         And item "Title" "Author" "url" exists in the application
-        When edit commands "1" "author" "New Author" are entered
+        When edit commands "1" "" "New Author" "" "" "" are entered
         When items are listed
         And user does nothing
         And system will respond with "(id: 1) Book: Title by New Author"
 
-    Scenario: user can't edit a book field that doesn't exist
-        Given command "edit" is entered
-        And item "Title" "Author" "url" exists in the application
-        And command "1" is entered
-        When edit commands "doesn't exist" "New Author" "author" are entered
-        When items are listed
-        And user does nothing
-        And system will respond with "Please enter a valid field"
-        And system will respond with "(id: 1) Book: Title by Author"
-
     Scenario: user can edit an book description
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
-        When edit commands "1" "description" "New Description" are entered
+        When edit commands "1" "" "" "" "New Description" "" are entered
         When command "details" with id 1 is entered
         And user does nothing
         Then system will respond with
@@ -72,7 +62,7 @@ Feature: As a user I want to edit items
         Given command "edit" is entered
         And item "Title" "Author" "url" exists in the application
         And item "Learn Python" "Developer" "www.google.com" exists in the application
-        When edit commands "2" "url" "www.youtube.com" are entered
+        When edit commands "2" "" "" "www.youtube.com" "" "" are entered
         When items are listed
         And user does nothing
         And system will respond with "(id: 1) Book: Title by Author"
@@ -81,7 +71,7 @@ Feature: As a user I want to edit items
     Scenario: user can edit a book isbn
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
-        When edit commands "1" "isbn" "New ISBN" are entered
+        When edit commands "1" "" "" "" "" "New ISBN" are entered
         When command "details" with id 1 is entered
         And user does nothing
         Then system will respond with
@@ -103,17 +93,9 @@ Feature: As a user I want to edit items
     Scenario: user can't edit the isbn field of an item that is not a book
         Given command "edit" is entered
         And podcast "Title" "Author" "url" "description" exists in the application
-        And command "1" is entered
-        When edit commands "isbn" "title" "new title" are entered
+        When edit commands "1" "" "" "" "" are entered
         And user does nothing
-        And system will respond with "Please enter a valid field"
-
-    Scenario: user has to enter a title when editing a book
-        Given command "edit" is entered
-        And book "Title" "Author" "url" "isbn" "description" exists in the application
-        When edit commands "1" "title" with invalid value "" and valid value "new title" are entered
-        And user does nothing
-        Then system will respond with "Please enter a valid title (1-50 characters)"
+        Then system will not ask for isbn
 
     Scenario: user can't enter a title that is over 50 characters when editing a book
         Given command "edit" is entered

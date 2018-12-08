@@ -49,7 +49,7 @@ public class Stepdefs {
         book.setDescription(description);
         itemDao.addItem(book);
     }
-    
+
     @Given("^video \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" exists in the application")
     public void book_exists_in_application(String title, String author, String url, String description) throws Throwable {
         Video video = new Video(-1, title, author, url, description);
@@ -68,13 +68,12 @@ public class Stepdefs {
     public void command_is_entered(String command) {
         inputLines.add(command);
     }
-	
-	@Given("^command \"([^\"]*)\" with id (\\d+) is entered$")
+
+    @Given("^command \"([^\"]*)\" with id (\\d+) is entered$")
     public void command_with_id_is_entered(String command, int id) {
         inputLines.add(command);
-		inputLines.add(Integer.toString(id));
+        inputLines.add(Integer.toString(id));
     }
-
 
     @When("^user does nothing$")
     public void user_does_nothing() throws ClassNotFoundException {
@@ -84,31 +83,53 @@ public class Stepdefs {
         app.run();
     }
 
-    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" are entered$")
-    public void edit_commands(String id, String field, String edited) throws Throwable {
+    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" are entered$")
+    public void edit_commands_for_book(String id, String newTitle, String newAuthor, String newUrl, String newDescription, String newIsbn) throws Throwable {
         command_is_entered(id);
-        command_is_entered(field);
-        command_is_entered(edited);
+        command_is_entered(newTitle);
+        command_is_entered(newAuthor);
+        command_is_entered(newUrl);
+        command_is_entered(newDescription);
+        command_is_entered(newIsbn);
+    }
+
+    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" are entered$")
+    public void edit_commands(String id, String newTitle, String newAuthor, String newUrl, String newDescription) throws Throwable {
+        command_is_entered(id);
+        command_is_entered(newTitle);
+        command_is_entered(newAuthor);
+        command_is_entered(newUrl);
+        command_is_entered(newDescription);
     }
 
     @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" with too long \"([^\"]*)\" characters and valid value \"([^\"]*)\" are entered$")
     public void edit_commands_too_long(String id, String field, int characters, String valid) throws Throwable {
         command_is_entered(id);
-        command_is_entered(field);
+        String[] commands = {"", "", "", "", "", ""};
         StringBuilder sb = new StringBuilder();
         for (int x = 0; x < characters; x++) {
             sb.append("T");
         }
-        command_is_entered(sb.toString());
-        command_is_entered(valid);
-    }
-
-    @When("^edit commands \"([^\"]*)\" \"([^\"]*)\" with invalid value \"([^\"]*)\" and valid value \"([^\"]*)\" are entered$")
-    public void edit_commands(String id, String field, String invalid, String valid) throws Throwable {
-        command_is_entered(id);
-        command_is_entered(field);
-        command_is_entered(invalid);
-        command_is_entered(valid);
+        String invalid = sb.toString();
+        if (field.equals("title")) {
+            commands[0] = invalid;
+            commands[1] = valid;            
+        } else if (field.equals("author")) {
+            commands[1] = invalid;
+            commands[2] = valid;            
+        } else if (field.equals("url")) {
+            commands[2] = invalid;
+            commands[3] = valid;
+        } else if (field.equals("description")) {
+            commands[3] = invalid;
+            commands[4] = valid;
+        } else if (field.equals("isbn")) {
+            commands[4] = invalid;   
+            commands[5] = valid;           
+        }        
+        for (String c : commands) {
+            command_is_entered(c);
+        }
     }
 
     @When("^item \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" is added$")
@@ -152,19 +173,25 @@ public class Stepdefs {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(io.getPrints().contains(arg1));
     }
-    
+
     @Then("^system will respond with print sequence \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
     public void system_will_respond_with_print_sequence(String print1, String print2, String print3) throws Throwable {
         int firstIndex = 0;
-        for (int i = 0; i < io.getPrints().size(); i ++) {
+        for (int i = 0; i < io.getPrints().size(); i++) {
             if (io.getPrints().get(i).equals(print1)) {
                 firstIndex = i;
             }
         }
         assertEquals(print2, io.getPrints().get(firstIndex + 1));
-        assertEquals(print3, io.getPrints().get(firstIndex + 2));       
+        assertEquals(print3, io.getPrints().get(firstIndex + 2));
     }
     
+    @Then("^system will not ask for isbn$")
+    public void system_will_not_ask_isbn() throws Throwable {
+        assertTrue(io.getPrints().contains("Enter a new title (leave empty to skip)"));
+        assertFalse(io.getPrints().contains("Enter a new isbn (leave empty to skip)"));
+    }    
+
     @After
     public void tearDown() {
         testDatabase.delete();
