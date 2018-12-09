@@ -8,12 +8,14 @@ import java.util.List;
 import item.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseItemDao implements ItemDao {
 
     private Database database;
+    private HashMap<String, PreparedStatement> queries;
 
     public DatabaseItemDao(Database database) {
         this.database = database;
@@ -28,7 +30,8 @@ public class DatabaseItemDao implements ItemDao {
             if (sortby.equals("")) {
                 stmt = connection.prepareStatement("SELECT * FROM Item");                
             } else {
-                stmt = connection.prepareStatement("SELECT * FROM Item ORDER BY " + sortby + " COLLATE NOCASE");
+                stmt = connection.prepareStatement("SELECT * FROM Item ORDER BY ? COLLATE NOCASE");
+                stmt.setString(1, sortby);
             }
             ResultSet rs = stmt.executeQuery();
 
@@ -232,5 +235,23 @@ public class DatabaseItemDao implements ItemDao {
 			System.out.println("Problem occurred while accessing the database");
 		}
 	}
+        
+        private HashMap<String, PreparedStatement> createQueries() throws SQLException {
+            Connection connection = database.getConnection();
+            HashMap<String, PreparedStatement> queries = new HashMap<>();
+            
+            queries.put("allItems", connection.prepareStatement("SELECT * FROM Item"));
+            queries.put("addItem", connection.prepareStatement("INSERT INTO Item (type, title, author, url, description, isbn, read) VALUES (?, ?, ?, ?, ?, ?, ?)"));
+            queries.put("allItemsOrdered", connection.prepareStatement("SELECT * FROM Item ORDER BY ? COLLATE NOCASE"));
+            queries.put("searchItem", connection.prepareStatement("SELECT * FROM Item WHERE " 
+                    + "(title LIKE ? OR author LIKE ? "
+                    + "OR description LIKE ? OR url LIKE ? "
+                    + "OR isbn LIKE ?)"));
+            queries.put("getItem", connection.prepareStatement("SELECT * FROM Item WHERE id = ?"));
+            queries.put("deleteItem", connection.prepareStatement("DELETE FROM Item WHERE id = ?"));
+            
+            connection.close();
+            return queries;
+        }
 
 }
