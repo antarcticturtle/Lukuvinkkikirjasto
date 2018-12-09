@@ -20,7 +20,7 @@ public class App {
 
         boolean goOn = true;
         while (goOn) {
-			io.print("");
+            io.print("");
             String command = askForCommand();
             io.print("");
 
@@ -32,10 +32,10 @@ public class App {
                 case "":
                     goOn = false;
                     break;
-					
-				case "help":
-					printCommands();
-					break;
+
+                case "help":
+                    printCommands();
+                    break;
 
                 case "new":
                     addItem();
@@ -48,10 +48,10 @@ public class App {
                 case "list by":
                     this.itemController.sortItems();
                     break;
-					
-				case "details":
-					this.itemController.detailedItemInformation();
-					break;
+
+                case "details":
+                    this.itemController.detailedItemInformation();
+                    break;
 
                 case "edit":
                     itemController.editItem();
@@ -78,22 +78,22 @@ public class App {
     private String askForCommand() {
         return io.readLine("Next command (write 'help' to see the commands):");
     }
-	
-	private void printCommands() {
-		io.print("quit = quit the application\n"
-				+ "help = see these commands\n"
+
+    private void printCommands() {
+        io.print("quit = quit the application\n"
+                + "help = see these commands\n"
                 + "new = add a new item\n"
                 + "list = list items\n"
                 + "list by = sort and list items\n"
-				+ "details = see more detailed information of an item\n"
+                + "details = see more detailed information of an item\n"
                 + "edit = edit item\n"
                 + "search = search items\n"
                 + "delete = delete item");
-	}
+    }
 
     private void printGreeting() {
         io.print("Welcome to the CS literature recommendation system!");
-		io.print("Write 'help' to see the commands.");
+        io.print("Write 'help' to see the commands.");
     }
 
     private void addItem() {

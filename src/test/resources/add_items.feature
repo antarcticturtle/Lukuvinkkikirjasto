@@ -38,7 +38,7 @@ Feature: As a user I want to add items
         And command " " is entered
         When item "Title" "SomeAuthor" "url" "" "" is added
         And user does nothing
-        Then system will respond with "Please enter a valid title"
+        Then system will respond with "Title must contain 1-50 characters. Try again: "
 
     Scenario: ui works correctly when adding video
         Given command "new" is entered

@@ -102,32 +102,32 @@ Feature: As a user I want to edit items
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "title" with too long "51" characters and valid value "new title" are entered
         And user does nothing
-        Then system will respond with "Please enter a valid title (1-50 characters)"
+        Then system will respond with "Please enter a valid title (max. 50 characters)"
 
     Scenario: user can't enter an author that is over 50 characters when editing a book
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "author" with too long "51" characters and valid value "new author" are entered
         And user does nothing
-        Then system will respond with "Please enter a valid author (0-50 characters)"
+        Then system will respond with "Please enter a valid author (max. 50 characters)"
 
     Scenario: user can't enter a url that is over 500 characters when editing a book
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "url" with too long "501" characters and valid value "new url" are entered
         And user does nothing
-        Then system will respond with "Please enter a valid url (0-500 characters)"
+        Then system will respond with "Please enter a valid url (max. 500 characters)"
 
     Scenario: user can't enter a description that is over 500 characters when editing a book
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "description" with too long "501" characters and valid value "new description" are entered
         And user does nothing
-        Then system will respond with "Please enter a valid description (0-500 characters)"
+        Then system will respond with "Please enter a valid description (max. 500 characters)"
 
     Scenario: user can't enter an isbn that is over 20 characters when editing a book
         Given command "edit" is entered
         And book "Title" "Author" "url" "isbn" "description" exists in the application
         When edit commands "1" "isbn" with too long "21" characters and valid value "new description" are entered
         And user does nothing
-        Then system will respond with "Please enter a valid isbn (0-20 characters)"
+        Then system will respond with "Please enter a valid isbn (max. 20 characters)"
