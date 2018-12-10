@@ -61,7 +61,7 @@ public class TextIOTest {
             TextIO tt = new TextIO();
             String lineContent = tt.readLine("does this work?");
 
-            assertEquals("does this work?\n", outContent.toString());
+            assertEquals("does this work?\n\n", outContent.toString());
             assertEquals("yes it works", lineContent);
         }
 }

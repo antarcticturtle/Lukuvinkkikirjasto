@@ -44,9 +44,8 @@ Feature: As a user I want to edit items
         And user does nothing
         Then system will respond with
         """
-        ******************************************************
         (id: 1) Book: Title by Author
-        ******************************************************
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Type:          Book
         Title:         Title
         Author:        Author
@@ -54,8 +53,6 @@ Feature: As a user I want to edit items
         Description:   New Description
         Read:          false
         ISBN:          isbn
-        ******************************************************
-
         """
 
     Scenario: user can edit an book title when multiple books exist
@@ -76,9 +73,8 @@ Feature: As a user I want to edit items
         And user does nothing
         Then system will respond with
         """
-        ******************************************************
         (id: 1) Book: Title by Author
-        ******************************************************
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Type:          Book
         Title:         Title
         Author:        Author
@@ -86,8 +82,6 @@ Feature: As a user I want to edit items
         Description:   description
         Read:          false
         ISBN:          New ISBN
-        ******************************************************
-
         """
 
     Scenario: user can't edit the isbn field of an item that is not a book

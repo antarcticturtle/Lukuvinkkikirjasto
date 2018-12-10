@@ -5,13 +5,12 @@ Feature: As a user I want to see the available commands
         When user does nothing
         Then system will respond with 
             """
-            quit = quit the application
-            help = see these commands
-            new = add a new item
-            list = list items
-            list by = sort and list items
-            details = see more detailed information of an item
-            edit = edit item
-            search = search items
-            delete = delete item
+            quit      = quit the application
+            help      = see these commands
+            list      = list items
+            list by   = sort and list items
+            details   = see detailed information of an item
+            edit      = edit item
+            search    = search items
+            delete    = delete item
             """

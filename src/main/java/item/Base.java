@@ -94,58 +94,34 @@ public class Base implements Item {
 	
 	@Override
 	public String detailedToString() {
-
         StringBuilder sb = new StringBuilder();
-		sb.append(getLineOfAsterisks());
+		
 		sb.append(this.toString()).append("\n");
-		sb.append(getLineOfAsterisks());
-
-		sb.append(addSpaces("Type:"));
+		sb.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		sb.append(String.format("%-15s", "Type:"));
 		sb.append(this.getClass().getSimpleName());
 		sb.append("\n");
 		
-		sb.append(addSpaces("Title:"));
+		sb.append(String.format("%-15s", "Title:"));
 		sb.append(this.getTitle());
 		sb.append("\n");
 
-		sb.append(addSpaces("Author:"));
+		sb.append(String.format("%-15s", "Author:"));
 		sb.append(this.getAuthor());
 		sb.append("\n");
 
-		sb.append(addSpaces("URL:"));
+		sb.append(String.format("%-15s", "URL:"));
 		sb.append(this.getUrl());
 		sb.append("\n");
 
-		sb.append(addSpaces("Description:"));
+		sb.append(String.format("%-15s", "Description:"));
 		sb.append(this.getDescription());
 		sb.append("\n");
 
-		sb.append(addSpaces("Read:"));
+		sb.append(String.format("%-15s", "Read:"));
 		sb.append(this.isRead());
-        sb.append("\n");
-        // Not adding a line of asterisk to the end so we can appen isbn for book.
-        // Each item has to append the asterisks themselves
 		
 		return sb.toString();
     }
-    
-    public String addSpaces(String word) {
-        // Using spaces instead of tabs
-		StringBuilder sb = new StringBuilder();
-		sb.append(word);
-		for (int x = 0; x < (15 - word.length()); x++) {
-			sb.append(" ");
-		}
-		return sb.toString();
-	}
-	
-	/**
-	 * 
-	 * @return A line of asterisk characters to use as a divider 
-	 *         when printing item information
-	 */
-	protected String getLineOfAsterisks() {
-		return "******************************************************\n";
-	}
     
 }

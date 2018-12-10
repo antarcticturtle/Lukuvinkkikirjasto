@@ -88,6 +88,8 @@ public class ItemController {
 
     public void editItem() {
         listItems("");
+		io.print("");
+
         String id = askUserForId();
         if (id.equals("")) {
             return;	//cancel edit if id is empty
@@ -191,10 +193,11 @@ public class ItemController {
             io.print("Invalid option");
         }
     }
-
-    public void detailedItemInformation() {
-        listItems("");
-        String id = askUserForId();
+	
+	public void detailedItemInformation() {
+		listItems("");
+		io.print("");
+		String id = askUserForId();
         if (id.equals("")) {
             return;	//cancel if id is empty
         }
