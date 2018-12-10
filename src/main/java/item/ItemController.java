@@ -94,11 +94,13 @@ public class ItemController {
         if (id.equals("")) {
             return;	//cancel edit if id is empty
         }
+        Item item = itemDao.getItemById(Integer.parseInt(id));        
+        io.print(item.detailedToString());
+        io.print("");
         this.editField("title", id);
         this.editField("author", id);
         this.editField("url", id);
         this.editField("description", id);
-        Item item = itemDao.getItemById(Integer.parseInt(id));
         if (item.getClass() == Book.class) {
             this.editField("isbn", id);
         }

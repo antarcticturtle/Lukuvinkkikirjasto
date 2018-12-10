@@ -241,7 +241,6 @@ public class DatabaseItemDao implements ItemDao {
 			stmt.executeUpdate();
             stmt.close();
             connection.close();
-            System.out.println("dont'");
 		} catch (SQLException ex) {
 			System.out.println("Problem occurred while accessing the database");
 		}
