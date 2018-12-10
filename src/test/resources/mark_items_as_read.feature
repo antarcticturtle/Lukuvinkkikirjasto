@@ -15,15 +15,4 @@ Feature: As a user I want to mark items as read
         And command "details" is entered
         And command "1" is entered
         And user does nothing
-        Then system will respond with 
-            """
-            (id: 1) Book: title by author
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            Type:          Book
-            Title:         title
-            Author:        author
-            URL:           url
-            Description:   description
-            Read:          true
-            ISBN:          isbn
-            """
+        Then the detailed information view of the read book is shown with title "title", author "author", url "url", isbn "isbn" and description "description"

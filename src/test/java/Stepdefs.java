@@ -174,15 +174,37 @@ public class Stepdefs {
         assertTrue(io.getPrints().contains(arg1));
     }
 
+    // Separate indices by space
+    @Then("^system will print items in order \"([^\"]*)\"$")
+    public void system_will_print_items_in_order(String order) throws Throwable {
+        List<String> outputs = io.getPrints();
+        String[] indices = order.split(" ");
+        // 4
+        for (int x = 0; x < indices.length; x++) {
+            try {
+                Integer z = Integer.parseInt(indices[x]);
+                Item item = itemDao.getItemById(z);
+                assertEquals(item.toString(), outputs.get(4 + x));
+            } catch (NumberFormatException e) {
+                
+            }
+            
+        }
+    }
+
     @Then("^system will respond with print sequence \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
     public void system_will_respond_with_print_sequence(String print1, String print2, String print3) throws Throwable {
+        List<String> outputs = io.getPrints();
+        Item book1 = itemDao.getItemById(1);
+        assertEquals(book1.toString(), outputs.get(outputs.size() - 6));
+        assertEquals(2, outputs);
         int firstIndex = 0;
         for (int i = 0; i < io.getPrints().size(); i++) {
             if (io.getPrints().get(i).equals(print1)) {
                 firstIndex = i;
             }
         }
-        assertEquals(print2, io.getPrints().get(firstIndex + 1));
+        assertEquals(print2, io.getPrints().get(firstIndex + 2));
         assertEquals(print3, io.getPrints().get(firstIndex + 2));
     }
     
@@ -214,6 +236,20 @@ public class Stepdefs {
 					   + "URL:           " + url + "\n"
 					   + "Description:   " + description + "\n"
 					   + "Read:          false\n"
+					   + "ISBN:          " + isbn;
+		assertTrue(io.getPrints().contains(print));
+	}
+	
+	@Then("^the detailed information view of the read book is shown with title \"([^\"]*)\", author \"([^\"]*)\", url \"([^\"]*)\", isbn \"([^\"]*)\" and description \"([^\"]*)\"$")
+	public void detailed_information_view_of_the_read_book_is_shown_with_correct_information(String title, String author, String url, String isbn, String description) {
+		String print = "(id: " + Color.yellow("1") + ") Book: " + Color.cyan(title) + " by " + Color.cyan(author) + "\n"
+					   + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+					   + "Type:          Book\n"
+					   + "Title:         " + title + "\n"
+					   + "Author:        " + author + "\n"
+					   + "URL:           " + url + "\n"
+					   + "Description:   " + description + "\n"
+					   + "Read:          true\n"
 					   + "ISBN:          " + isbn;
 		assertTrue(io.getPrints().contains(print));
 	}

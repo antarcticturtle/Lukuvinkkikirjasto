@@ -85,11 +85,6 @@ public class Base implements Item {
 
 	public String isRead() {
         return this.read ? "true" : "false";
-        // if (this.read) {
-        //     return "true";
-        // } else {
-        //     return "false";
-        // }
 	}
 
     @Override
