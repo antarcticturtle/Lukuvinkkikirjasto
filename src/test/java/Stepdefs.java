@@ -190,7 +190,46 @@ public class Stepdefs {
     public void system_will_not_ask_isbn() throws Throwable {
         assertTrue(io.getPrints().contains("Enter a new title (leave empty to skip)"));
         assertFalse(io.getPrints().contains("Enter a new isbn (leave empty to skip)"));
-    }    
+    } 
+	
+	@Then("^the item is listed with correct id \"([^\"]*)\", type \"([^\"]*)\", title \"([^\"]*)\" and author \"([^\"]*)\"$")
+	public void item_will_be_listed_with_correct_id_title_and_author(String id, String type, String title, String author) {
+		String listItem = "(id: " + Color.yellow(id) + ") " + type + ": " + Color.cyan(title) + " by " + Color.cyan(author);
+		assertTrue(io.getPrints().contains(listItem));
+	}
+	
+	@Then("^the item is listed with correct id \"([^\"]*)\", type \"([^\"]*)\" and title \"([^\"]*)\"$")
+	public void item_will_be_listed_with_correct_id_title_and_author(String id, String type, String title) {
+		String listItem = "(id: " + Color.yellow(id) + ") " + type + ": " + Color.cyan(title);
+		assertTrue(io.getPrints().contains(listItem));
+	}
+	
+	@Then("^the detailed information view of the book is shown with title \"([^\"]*)\", author \"([^\"]*)\", url \"([^\"]*)\", isbn \"([^\"]*)\" and description \"([^\"]*)\"$")
+	public void detailed_information_view_of_book_is_shown_with_correct_information(String title, String author, String url, String isbn, String description) {
+		String print = "(id: " + Color.yellow("1") + ") Book: " + Color.cyan(title) + " by " + Color.cyan(author) + "\n"
+					   + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+					   + "Type:          Book\n"
+					   + "Title:         " + title + "\n"
+					   + "Author:        " + author + "\n"
+					   + "URL:           " + url + "\n"
+					   + "Description:   " + description + "\n"
+					   + "Read:          false\n"
+					   + "ISBN:          " + isbn;
+		assertTrue(io.getPrints().contains(print));
+	}
+	
+	@Then("^the detailed information view of the video is shown with title \"([^\"]*)\", author \"([^\"]*)\", url \"([^\"]*)\" and description \"([^\"]*)\"$")
+	public void detailed_information_view_of_video_is_shown_with_correct_information(String title, String author, String url, String description) {
+		String print = "(id: " + Color.yellow("1") + ") Video: " + Color.cyan(title) + " by " + Color.cyan(author) + "\n"
+					   + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+					   + "Type:          Video\n"
+					   + "Title:         " + title + "\n"
+					   + "Author:        " + author + "\n"
+					   + "URL:           " + url + "\n"
+					   + "Description:   " + description + "\n"
+					   + "Read:          false";
+		assertTrue(io.getPrints().contains(print));
+	}
 
     @After
     public void tearDown() {

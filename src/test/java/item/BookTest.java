@@ -1,6 +1,6 @@
 package item;
 
-import org.junit.After;
+import io.Color;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -16,7 +16,7 @@ public class BookTest {
     
     @Test 
     public void bookIsCreatedWithNameAndAuthor() {
-        assertEquals("(id: -1) Book: Name by Author", book.toString());
+        assertEquals("(id: " + Color.yellow("-1") + ") Book: " + Color.cyan("Name") + " by " + Color.cyan("Author"), book.toString());
     }
     
     @Test 

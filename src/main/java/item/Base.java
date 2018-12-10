@@ -1,5 +1,7 @@
 package item;
 
+import io.Color;
+import io.IO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,13 +82,14 @@ public class Base implements Item {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("(id: ").append(this.id).append(") ");
+		
+        sb.append("(id: ").append(Color.yellow(Integer.toString(this.id))).append(") ");
         sb.append(this.getClass().getSimpleName());
         sb.append(": ");
-        sb.append(this.getTitle());
+        sb.append(Color.cyan(this.getTitle()));
         if (!this.getAuthor().equals("")) {
             sb.append(" by ");
-            sb.append(this.getAuthor());
+            sb.append(Color.cyan(this.getAuthor()));
         }
 
         return sb.toString();

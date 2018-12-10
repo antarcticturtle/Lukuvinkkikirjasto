@@ -9,7 +9,7 @@ Feature: As a user I want to list items
         Given command "list" is entered
         And item "Title" "Author" "url" exists in the application
         When user does nothing
-        Then system will respond with "(id: 1) Book: Title by Author"
+        Then the item is listed with correct id "1", type "Book", title "Title" and author "Author"
 
     Scenario: user can list multiple items
         Given command "list" is entered
@@ -18,10 +18,14 @@ Feature: As a user I want to list items
         And item "Book3" "Author2" "url" exists in the application
         And item "Book4" "Author3" "url2" exists in the application
         When user does nothing
-        Then system will respond with "(id: 1) Book: Book1 by Author1"
-        Then system will respond with "(id: 2) Book: Book2 by Author1"
-        Then system will respond with "(id: 3) Book: Book3 by Author2"
-        Then system will respond with "(id: 4) Book: Book4 by Author3"
+#        Then system will respond with "(id: 1) Book: Book1 by Author1"
+#        Then system will respond with "(id: 2) Book: Book2 by Author1"
+#        Then system will respond with "(id: 3) Book: Book3 by Author2"
+#        Then system will respond with "(id: 4) Book: Book4 by Author3"
+        Then the item is listed with correct id "1", type "Book", title "Book1" and author "Author1"
+        Then the item is listed with correct id "2", type "Book", title "Book2" and author "Author1"
+        Then the item is listed with correct id "3", type "Book", title "Book3" and author "Author2"
+        Then the item is listed with correct id "4", type "Book", title "Book4" and author "Author3"
 
     Scenario: user can list items sorted by title
         Given command "list by" is entered
@@ -49,4 +53,4 @@ Feature: As a user I want to list items
         Given item "Title" "Author" "url" exists in the application
         When items are listed
         And user does nothing
-        Then system will respond with "(id: 1) Book: Title by Author"
+        Then the item is listed with correct id "1", type "Book", title "Title" and author "Author"
