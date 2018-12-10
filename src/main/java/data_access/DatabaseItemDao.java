@@ -130,17 +130,21 @@ public class DatabaseItemDao implements ItemDao {
             rs.close();
             stmt.close();
             connection.close();
+            Item item = null;
             if (type.equals("book")) {
                 Book b = new Book(id, title, author, url, description);
                 b.setIsbn(isbn);
+                b.setRead(read);
                 return b;
             } else if (type.equals("video")) {
-                return new Video(id, title, author, url, description);
+                item = new Video(id, title, author, url, description);
             } else if (type.equals("podcast")) {
-                return new Podcast(id, title, author, url, description);
+                item = new Podcast(id, title, author, url, description);
             } else {
-                return new BlogPost(id, title, author, url, description);
+                item = new BlogPost(id, title, author, url, description);
             }
+            item.setRead(read);
+            return item;
         } catch (Exception e) {
             System.out.println("Problem occurred while accessing the database");
         }
@@ -219,8 +223,17 @@ public class DatabaseItemDao implements ItemDao {
 				case "description":
 					stmt = connection.prepareStatement("UPDATE Item SET description = ? WHERE id = ?");
 					break;
-                                case "isbn":
-                                        stmt = connection.prepareStatement("UPDATE Item SET isbn = ? WHERE id = ?");
+                case "isbn":
+                    stmt = connection.prepareStatement("UPDATE Item SET isbn = ? WHERE id = ?");
+                    break;
+                case "read":
+                    stmt = connection.prepareStatement("UPDATE Item SET read = ? WHERE id = ?");
+                    stmt.setBoolean(1, true);
+                    stmt.setInt(2, id);
+                    stmt.executeUpdate();
+                    stmt.close();
+                    connection.close();
+                    return;
 			}
 			
 			stmt.setString(1, value);
@@ -228,6 +241,7 @@ public class DatabaseItemDao implements ItemDao {
 			stmt.executeUpdate();
             stmt.close();
             connection.close();
+            System.out.println("dont'");
 		} catch (SQLException ex) {
 			System.out.println("Problem occurred while accessing the database");
 		}

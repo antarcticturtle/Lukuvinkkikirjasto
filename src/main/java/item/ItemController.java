@@ -105,6 +105,20 @@ public class ItemController {
 
     }
 
+    public void readItem() {
+        listItems("");
+        String id = askUserForId();
+        if (id.equals("")) {
+            return;
+        } else {
+            itemDao.editItem(Integer.parseInt(id), "read", "1");
+        }
+    }
+
+    private void markItemAsRead(String id) {
+
+    }
+
     private void editField(String field, String id) {
         String newValue = "";
         if (field.equals("title")) {

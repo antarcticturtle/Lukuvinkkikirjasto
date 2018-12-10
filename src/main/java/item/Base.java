@@ -64,6 +64,14 @@ public class Base implements Item {
     public void setUrl(String url) {
         this.url = url;
     }
+    
+    public Boolean getRead() {
+        return this.read;
+    }
+ 
+    public void setRead(Boolean read) {
+        this.read = read;
+    }
 
     @Override
     public List<String> getTags() {
@@ -75,8 +83,13 @@ public class Base implements Item {
         this.tags.add(tag);
     }
 
-	public boolean isRead() {
-		return read;
+	public String isRead() {
+        return this.read ? "true" : "false";
+        // if (this.read) {
+        //     return "true";
+        // } else {
+        //     return "false";
+        // }
 	}
 
     @Override

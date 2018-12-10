@@ -12,6 +12,8 @@ public interface Item {
     void setDescription(String description);
     String getUrl();
     void setUrl(String url);
+    Boolean getRead();
+    void setRead(Boolean read);
     List<String> getTags();
     void addTag(String tag);
 	String detailedToString();

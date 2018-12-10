@@ -64,6 +64,10 @@ public class App {
                     itemController.deleteItem();
                     break;
 
+                case "read":
+                    itemController.readItem();
+                    break;
+
                 default:
                     io.print("unknown option");
                     break;
@@ -95,7 +99,9 @@ public class App {
 		sb.append(formatCommand("search"));
 		sb.append("= search items\n");
 		sb.append(formatCommand("delete"));
-		sb.append("= delete item");
+		sb.append("= delete item\n");
+		sb.append(formatCommand("read"));
+		sb.append("= mark items as read");
 				
 		io.print(sb.toString());
 	}

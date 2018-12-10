@@ -13,4 +13,5 @@ Feature: As a user I want to see the available commands
             edit      = edit item
             search    = search items
             delete    = delete item
+            read      = mark items as read
             """
