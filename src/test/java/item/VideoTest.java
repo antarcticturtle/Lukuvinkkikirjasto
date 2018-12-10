@@ -30,17 +30,15 @@ public class VideoTest {
 	
 	@Test
 	public void detailToStringIsCorrect() {
-		String print = "******************************************************\n"
-					   + "(id: -1) Video: Title by Author\n"
-					   + "******************************************************\n"
+		String print = "(id: -1) Video: Title by Author\n"
+					   + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 					   + "Type:          Video\n"
 					   + "Title:         Title\n"
 					   + "Author:        Author\n"
 					   + "URL:           Url\n"
 					   + "Description:   Description\n"
-					   + "Read:          false\n"
-					   + "******************************************************\n"
-					   + "";
+					   + "Read:          false";
+		
 		assertEquals(print, video.detailedToString());
 	}
 

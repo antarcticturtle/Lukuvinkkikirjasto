@@ -6,9 +6,8 @@ Scenario: user can see the detailed information of a book
     When user does nothing
     Then system will respond with 
         """
-        ******************************************************
         (id: 1) Book: title by author
-        ******************************************************
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Type:          Book
         Title:         title
         Author:        author
@@ -16,8 +15,6 @@ Scenario: user can see the detailed information of a book
         Description:   description
         Read:          false
         ISBN:          isbn
-        ******************************************************
-
         """
 
 Scenario: user can see the detailed information of a video
@@ -26,15 +23,12 @@ Scenario: user can see the detailed information of a video
     When user does nothing
     Then system will respond with 
         """
-        ******************************************************
         (id: 1) Video: title by author
-        ******************************************************
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Type:          Video
         Title:         title
         Author:        author
         URL:           url
         Description:   description
         Read:          false
-        ******************************************************
-
         """

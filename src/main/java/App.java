@@ -20,9 +20,8 @@ public class App {
 
         boolean goOn = true;
         while (goOn) {
-            io.print("");
+			printSeparator();
             String command = askForCommand();
-            io.print("");
 
             switch (command) {
                 case "quit":
@@ -69,7 +68,6 @@ public class App {
                     io.print("unknown option");
                     break;
             }
-            //io.print("");
         }
 
         printGoodbye();
@@ -78,22 +76,36 @@ public class App {
     private String askForCommand() {
         return io.readLine("Next command (write 'help' to see the commands):");
     }
-
-    private void printCommands() {
-        io.print("quit = quit the application\n"
-                + "help = see these commands\n"
-                + "new = add a new item\n"
-                + "list = list items\n"
-                + "list by = sort and list items\n"
-                + "details = see more detailed information of an item\n"
-                + "edit = edit item\n"
-                + "search = search items\n"
-                + "delete = delete item");
-    }
+	
+	private void printCommands() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(formatCommand("quit"));
+		sb.append("= quit the application\n");
+		sb.append(formatCommand("help"));
+		sb.append("= see these commands\n");
+		sb.append(formatCommand("list"));
+		sb.append("= list items\n");
+		sb.append(formatCommand("list by"));
+		sb.append("= sort and list items\n");
+		sb.append(formatCommand("details"));
+		sb.append("= see detailed information of an item\n");
+		sb.append(formatCommand("edit"));
+		sb.append("= edit item\n");
+		sb.append(formatCommand("search"));
+		sb.append("= search items\n");
+		sb.append(formatCommand("delete"));
+		sb.append("= delete item");
+				
+		io.print(sb.toString());
+	}
+	
+	private String formatCommand(String command) {
+		return String.format("%-10s", command);
+	}
 
     private void printGreeting() {
         io.print("Welcome to the CS literature recommendation system!");
-        io.print("Write 'help' to see the commands.");
     }
 
     private void addItem() {
@@ -120,6 +132,10 @@ public class App {
                 io.print("unknown type");
         }
     }
+	
+	private void printSeparator() {
+		io.print("-----------------------------------------------");
+	}
 
     private void printGoodbye() {
         io.print("Thank you for using Lukuvinkkikirjasto, hope to see you soon!");
