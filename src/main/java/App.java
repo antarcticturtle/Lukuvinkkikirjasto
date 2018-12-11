@@ -88,6 +88,8 @@ public class App {
 		sb.append("= quit the application\n");
 		sb.append(formatCommand("help"));
 		sb.append("= see these commands\n");
+                sb.append(formatCommand("new"));
+                sb.append("= add a new item\n");
 		sb.append(formatCommand("list"));
 		sb.append("= list items\n");
 		sb.append(formatCommand("list by"));
