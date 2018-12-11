@@ -39,3 +39,7 @@ In the base directory run the command `~/Lukuvinkkikirjasto$ ./gradlew jar` to b
 Start the application with command `~/Lukuvinkkikirjasto$ java -jar build/libs/Lukuvinkkikirjasto.jar`
 
 Run tests with command `~/Lukuvinkkikirjasto$ ./gradlew test`
+
+## License
+
+This project is licensed under the terms of the MIT license.
