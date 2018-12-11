@@ -6,11 +6,4 @@ public class Video extends Base {
 		super(id, title, author, url, description);
 	}
 
-	@Override
-	public String detailedToString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(super.detailedToString());
-		sb.append(getLineOfAsterisks());
-		return sb.toString();
-	}
 }

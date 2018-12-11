@@ -21,6 +21,9 @@ public class TextIO implements IO {
 	@Override
     public String readLine(String prompt) {
         System.out.println(prompt);
-        return scanner.nextLine();
+		String line = scanner.nextLine();
+		print("");
+		
+        return line;
     }
 }

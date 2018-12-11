@@ -50,88 +50,95 @@ public class ItemController {
     }
 
     public void deleteItem() {
-        for (Item item : itemDao.getItems("")) {
-            io.print(item.toString());
-        }
-        String id = io.readLine("Select the id of the item you want to delete");
-        try {
-            Item item = itemDao.deleteItemById(Integer.parseInt(id));
-            if (item != null) {
-                io.print("Deleted item " + item.getTitle());
-            } else {
-                io.print("Invalid id");
-            }
-        } catch (Exception exception) {
-            io.print("Invalid id");
-        }
+        this.listItems("");
+        String id = this.askUserForId();
+        if (id.equals("")) {
+            return;	//cancel if id is empty
+        }        
+        Item item = itemDao.deleteItemById(Integer.parseInt(id));
+        io.print("Deleted item " + item.getTitle());        
     }
 
     public List<String> addItem() {
         List<String> args = new ArrayList<String>();
-        String title = io.readLine("Title: ");
-        while (title.trim().equals("")) {
-            title = io.readLine("Please enter a valid title");
-        }
-        // title = lengthValidator("Please enter a valid title", "Maximum length for title is 50 characters. Try again: ", 1, 50);
-        while (title.length() > 50) {
-            title = io.readLine("Maximum length for title is 50 characters. Try again: ");
-        }
+        String title = lengthValidator("Title: ",
+                "Title must contain 1-50 characters. Try again: ",
+                1,
+                50);
         args.add(title);
         String author = lengthValidator("Author (leave empty to skip): ",
-                                        "Maximum length for author is 50 characters. Try again: ",
-                                        0,
-                                        50);
+                "Maximum length for author is 50 characters. Try again: ",
+                0,
+                50);
         args.add(author);
 
         String url = lengthValidator("Url (leave empty to skip): ",
-                                     "Maximum length for url is 500 characters. Try again: ",
-                                     0,
-                                     500);
+                "Maximum length for url is 500 characters. Try again: ",
+                0,
+                500);
         args.add(url);
-        
+
         String description = lengthValidator("Description (leave empty to skip): ",
-                                     "Maximum length for description is 500 characters. Try again: ",
-                                     0,
-                                     500);
+                "Maximum length for description is 500 characters. Try again: ",
+                0,
+                500);
         args.add(description);
         return args;
     }
 
     public void editItem() {
         listItems("");
+		io.print("");
+
         String id = askUserForId();
         if (id.equals("")) {
             return;	//cancel edit if id is empty
-        }              
+        }
+        Item item = itemDao.getItemById(Integer.parseInt(id));        
+        io.print(item.detailedToString());
+        io.print("");
         this.editField("title", id);
         this.editField("author", id);
         this.editField("url", id);
         this.editField("description", id);
-        Item item = itemDao.getItemById(Integer.parseInt(id));
         if (item.getClass() == Book.class) {
             this.editField("isbn", id);
         }
-        
+
+    }
+
+    public void readItem() {
+        listItems("");
+        String id = askUserForId();
+        if (id.equals("")) {
+            return;
+        } else {
+            itemDao.editItem(Integer.parseInt(id), "read", "1");
+        }
+    }
+
+    private void markItemAsRead(String id) {
+
     }
 
     private void editField(String field, String id) {
         String newValue = "";
         if (field.equals("title")) {
-            newValue = lengthValidator("Enter a new title (leave empty to skip)", "Please enter a valid title (1-50 characters)", 0, 50);
+            newValue = lengthValidator("Enter a new title (leave empty to skip)", "Please enter a valid title (max. 50 characters)", 0, 50);
         } else if (field.equals("author")) {
-            newValue = lengthValidator("Enter a new author (leave empty to skip)", "Please enter a valid author (0-50 characters)", 0, 50);
+            newValue = lengthValidator("Enter a new author (leave empty to skip)", "Please enter a valid author (max. 50 characters)", 0, 50);
         } else if (field.equals("url")) {
-            newValue = lengthValidator("Enter a new url (leave empty to skip)", "Please enter a valid url (0-500 characters)", 0, 500);
+            newValue = lengthValidator("Enter a new url (leave empty to skip)", "Please enter a valid url (max. 500 characters)", 0, 500);
         } else if (field.equals("description")) {
-            newValue = lengthValidator("Enter a new description (leave empty to skip)", "Please enter a valid description (0-500 characters)", 0, 500);
+            newValue = lengthValidator("Enter a new description (leave empty to skip)", "Please enter a valid description (max. 500 characters)", 0, 500);
         } else if (field.equals("isbn")) {
-            newValue = lengthValidator("Enter a new isbn (leave empty to skip)", "Please enter a valid isbn (0-20 characters)", 0, 20);
+            newValue = lengthValidator("Enter a new isbn (leave empty to skip)", "Please enter a valid isbn (max. 20 characters)", 0, 20);
         } else {
             newValue = io.readLine("Enter a new value");
         }
         if (!newValue.equals("")) {
             itemDao.editItem(Integer.parseInt(id), field, newValue);
-        }        
+        }
     }
 
     private String askUserForId() {
@@ -139,19 +146,10 @@ public class ItemController {
         String id = "";
         while (item == null) {
             id = io.readLine("Enter the id of the item (leave empty to cancel)");
-
             if (id.equals("")) {
                 return "";
             }
-
-            try {
-                Integer int_id = Integer.parseInt(id.trim());
-                item = itemDao.getItemById(int_id);
-            } catch (Exception e) {
-                io.print("Please enter a number");
-                continue;
-            }
-
+            item = this.findItem(id);
             if (item == null) {
                 io.print("Please enter a valid id");
             }
@@ -159,12 +157,23 @@ public class ItemController {
         return id;
     }
 
+    private Item findItem(String id) {
+        Item item = null;
+        try {
+            Integer int_id = Integer.parseInt(id.trim());
+            item = itemDao.getItemById(int_id);
+        } catch (Exception e) {
+            io.print("Please enter a number");            
+        }   
+        return item;
+    }
+
     public void addBook() {
         List<String> itemArgs = addItem();
         String isbn = lengthValidator("ISBN (leave empty to skip):",
-                                      "Maximum length for isbn is 20 characters. Try again: ",
-                                      0,
-                                      20);
+                "Maximum length for isbn is 20 characters. Try again: ",
+                0,
+                20);
         Book book = new Book(-1, itemArgs.get(0), itemArgs.get(1), itemArgs.get(2), itemArgs.get(3));
         if (!isbn.equals("")) {
             book.setIsbn(isbn);
@@ -203,14 +212,14 @@ public class ItemController {
 	
 	public void detailedItemInformation() {
 		listItems("");
+		io.print("");
 		String id = askUserForId();
         if (id.equals("")) {
-            return;	//cancel edit if id is empty
+            return;	//cancel if id is empty
         }
-		
-		Item item = itemDao.getItemById(Integer.parseInt(id));
-		io.print(item.detailedToString());
-	}
+        Item item = itemDao.getItemById(Integer.parseInt(id));
+        io.print(item.detailedToString());
+    }
 
     private void printNormal(List<Item> items) {
         for (Item item : items) {

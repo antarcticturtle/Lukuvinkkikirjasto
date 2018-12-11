@@ -23,12 +23,12 @@ Codecov
 
 ### Downloading the application
 
-Download the most recent version of the application by saving the file [Lukuvinkkikirjasto.jar](https://github.com/antarcticturtle/Lukuvinkkikirjasto/releases/download/Sprint3/Lukuvinkkikirjasto.jar) to your computer.
+Download the most recent version of the application by saving the file [Lukuvinkkikirjasto.jar](https://github.com/antarcticturtle/Lukuvinkkikirjasto/releases/download/Sprint4/Lukuvinkkikirjasto.jar) to your computer.
 
 Navigate to the folder containing the jar file and start the application with command
 `java -jar Lukuvinkkikirjasto.jar`
 
-A database file items.db will be created automatically to the same folder. If you remove the database file, a new empty database file will be created next time you run the application.
+A database file items.db will be created automatically to the same folder, if it doesn't already exist. If you remove the database file, a new empty database file will be created next time you run the application.
 
 ### Cloning the repository
 
@@ -40,4 +40,6 @@ Start the application with command `~/Lukuvinkkikirjasto$ java -jar build/libs/L
 
 Run tests with command `~/Lukuvinkkikirjasto$ ./gradlew test`
 
+## License
 
+This project is licensed under the terms of the MIT license.

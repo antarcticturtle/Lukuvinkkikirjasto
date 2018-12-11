@@ -57,9 +57,25 @@ public class ItemControllerTest {
         verify(itemDao).addItem(podcastCaptor.capture());
         assertEquals(podcast.toString(), podcastCaptor.getValue().toString());
     }
+    
+    @Test
+    public void userMustEnterAtLeastATitleWhenAddingAnItem() {
+        ItemDao itemDao = mock(DatabaseItemDao.class);
+        IO io = mock(TextIO.class);
+        ItemController itemController = new ItemController(itemDao, io);        
+
+        when(io.readLine("Title: ")).thenReturn("");
+        when(io.readLine("Title must contain 1-50 characters. Try again: ")).thenReturn("title");
+        when(io.readLine("Author (leave empty to skip): ")).thenReturn("");
+        when(io.readLine("Url (leave empty to skip): ")).thenReturn("");
+        when(io.readLine("Description (leave empty to skip): ")).thenReturn("");
+        when(io.readLine("ISBN (leave empty to skip):")).thenReturn("");
+        itemController.addBook();
+        verify(io, times(1)).readLine(eq("Title must contain 1-50 characters. Try again: "));
+    }
 
     @Test 
-    public void ifUserEntersWrongInformationAskAgain() {
+    public void ifUserEntersTooLongInformationAskAgain() {
         ItemDao itemDao = mock(DatabaseItemDao.class);
         IO io = mock(TextIO.class);
 
@@ -69,9 +85,8 @@ public class ItemControllerTest {
                 tooLong.append(String.valueOf(x));
         }
 
-        when(io.readLine("Title: ")).thenReturn("");
-        when(io.readLine("Please enter a valid title")).thenReturn(tooLong.toString());
-        when(io.readLine("Maximum length for title is 50 characters. Try again: ")).thenReturn("title");
+        when(io.readLine("Title: ")).thenReturn(tooLong.toString());
+        when(io.readLine("Title must contain 1-50 characters. Try again: ")).thenReturn("title");
         when(io.readLine("Author (leave empty to skip): ")).thenReturn(tooLong.toString());
         when(io.readLine("Maximum length for author is 50 characters. Try again: ")).thenReturn("author");
         when(io.readLine("Url (leave empty to skip): ")).thenReturn(tooLong.toString());
@@ -81,8 +96,7 @@ public class ItemControllerTest {
         when(io.readLine("ISBN (leave empty to skip):")).thenReturn(tooLong.toString());
         when(io.readLine("Maximum length for isbn is 20 characters. Try again: ")).thenReturn("isbn");
         itemController.addBook();
-        verify(io, times(1)).readLine(eq("Please enter a valid title"));
-        verify(io, times(1)).readLine(eq("Maximum length for title is 50 characters. Try again: "));
+        verify(io, times(1)).readLine(eq("Title must contain 1-50 characters. Try again: "));
         verify(io, times(1)).readLine(eq("Maximum length for author is 50 characters. Try again: "));
         verify(io, times(1)).readLine(eq("Maximum length for url is 500 characters. Try again: "));
         verify(io, times(1)).readLine(eq("Maximum length for description is 500 characters. Try again: "));
