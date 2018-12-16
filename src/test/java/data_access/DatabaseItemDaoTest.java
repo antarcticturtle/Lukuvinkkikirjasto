@@ -1,5 +1,7 @@
 package data_access;
 
+import io.Color;
+import io.IO;
 import item.*;
 import java.io.File;
 import org.junit.After;
@@ -34,13 +36,13 @@ public class DatabaseItemDaoTest {
     
     @Test
     public void itemCanBeFoundById() {
-        assertEquals("(id: 1) Book: Title by Author", dao.getItemById(1).toString());
+        assertEquals("(id: " + Color.yellow("1") + ") Book: " + Color.cyan("Title") + " by " + Color.cyan("Author"), dao.getItemById(1).toString());
     }
     
     @Test
     public void itemCanBeAdded() {
         dao.addItem(new Video(3, "Title3", "Author3", "url3", "description3"));
-        assertEquals("(id: 3) Video: Title3 by Author3", dao.getItemById(3).toString());
+        assertEquals("(id: " + Color.yellow("3") + ") Video: " + Color.cyan("Title3") + " by " + Color.cyan("Author3"), dao.getItemById(3).toString());
     }
     
     @Test

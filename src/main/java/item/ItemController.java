@@ -88,18 +88,36 @@ public class ItemController {
 
     public void editItem() {
         listItems("");
+		io.print("");
+
         String id = askUserForId();
         if (id.equals("")) {
             return;	//cancel edit if id is empty
         }
+        Item item = itemDao.getItemById(Integer.parseInt(id));        
+        io.print(item.detailedToString());
+        io.print("");
         this.editField("title", id);
         this.editField("author", id);
         this.editField("url", id);
         this.editField("description", id);
-        Item item = itemDao.getItemById(Integer.parseInt(id));
         if (item.getClass() == Book.class) {
             this.editField("isbn", id);
         }
+
+    }
+
+    public void readItem() {
+        listItems("");
+        String id = askUserForId();
+        if (id.equals("")) {
+            return;
+        } else {
+            itemDao.editItem(Integer.parseInt(id), "read", "1");
+        }
+    }
+
+    private void markItemAsRead(String id) {
 
     }
 
@@ -191,10 +209,11 @@ public class ItemController {
             io.print("Invalid option");
         }
     }
-
-    public void detailedItemInformation() {
-        listItems("");
-        String id = askUserForId();
+	
+	public void detailedItemInformation() {
+		listItems("");
+		io.print("");
+		String id = askUserForId();
         if (id.equals("")) {
             return;	//cancel if id is empty
         }

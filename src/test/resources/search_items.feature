@@ -24,7 +24,7 @@ Feature: As a user I want to search items
         And book "Eloquent Javascript" "Marijn Haverbeke" "www.amazon.com" "555" "Great book to learn Javascript" exists in the application
         And command "Python" is entered
         When user does nothing
-        Then system will respond with "(id: 1) Book: Think Python by O'Reilly"
+        Then the item is listed with correct id "1", type "Book", title "Think Python" and author "O'Reilly"
 
     Scenario: search matches any columns
         Given command "search" is entered
@@ -35,8 +35,8 @@ Feature: As a user I want to search items
         And book "title" "a" "url" "88" "Python" exists in the application
         And command "Python" is entered
         When user does nothing
-        Then system will respond with "(id: 1) Book: Python by a"
-        Then system will respond with "(id: 2) Book: title by Python"
-        Then system will respond with "(id: 3) Book: title by a"
-        Then system will respond with "(id: 4) Book: title by a"
-        Then system will respond with "(id: 5) Book: title by a"
+        Then the item is listed with correct id "1", type "Book", title "Python" and author "a"
+        Then the item is listed with correct id "2", type "Book", title "title" and author "Python"
+        Then the item is listed with correct id "3", type "Book", title "title" and author "a"
+        Then the item is listed with correct id "4", type "Book", title "title" and author "a"
+        Then the item is listed with correct id "5", type "Book", title "title" and author "a"
