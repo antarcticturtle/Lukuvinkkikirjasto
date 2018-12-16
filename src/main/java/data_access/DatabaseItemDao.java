@@ -8,15 +8,18 @@ import java.util.List;
 import item.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseItemDao implements ItemDao {
 
     private Database database;
+    private HashMap<String, String> queries;
 
     public DatabaseItemDao(Database database) {
         this.database = database;
+        queries = createQueries();
     }
 
     @Override
@@ -26,7 +29,7 @@ public class DatabaseItemDao implements ItemDao {
             Connection connection = database.getConnection();
             PreparedStatement stmt = null;
             if (sortby.equals("")) {
-                stmt = connection.prepareStatement("SELECT * FROM Item");                
+                stmt = connection.prepareStatement(queries.get("getItems"));
             } else {
                 stmt = connection.prepareStatement("SELECT * FROM Item ORDER BY " + sortby + " COLLATE NOCASE");
             }
@@ -75,10 +78,7 @@ public class DatabaseItemDao implements ItemDao {
         List<Item> items = new ArrayList<>();
         try {
             Connection connection = database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Item WHERE "
-                                                                 + "(title LIKE ? OR author LIKE ? "
-                                                                 + "OR description LIKE ? OR url LIKE ? "
-                                                                 + "OR isbn LIKE ?)");
+            PreparedStatement stmt = connection.prepareStatement(queries.get("searchItems"));
             stmt.setString(1, "%" + keyword + "%");
             stmt.setString(2, "%" + keyword + "%");
             stmt.setString(3, "%" + keyword + "%");
@@ -120,7 +120,7 @@ public class DatabaseItemDao implements ItemDao {
     public Item getItemById(int id) {
         try {
             Connection connection = database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Item WHERE id = ?");
+            PreparedStatement stmt = connection.prepareStatement(queries.get("getItemById"));
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
@@ -164,7 +164,7 @@ public class DatabaseItemDao implements ItemDao {
     public void addItem(Item item) {
         try {
             Connection connection = database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Item (type, title, author, url, description, isbn, read) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = connection.prepareStatement(queries.get("addItem"));
             if (item.getClass() == Book.class) {
                 stmt.setString(1, "book");
             } else if (item.getClass() == Video.class) {
@@ -202,7 +202,7 @@ public class DatabaseItemDao implements ItemDao {
         }
         try {
             Connection connection = database.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM Item WHERE id = ?");
+            PreparedStatement stmt = connection.prepareStatement(queries.get("deleteItemById"));
             stmt.setInt(1, id);
             stmt.executeUpdate();
             stmt.close();
@@ -254,5 +254,20 @@ public class DatabaseItemDao implements ItemDao {
 			System.out.println("Problem occurred while accessing the database");
 		}
 	}
+        
+        private HashMap<String, String> createQueries() {
+            HashMap<String, String> queries = new HashMap<>();
+            
+            queries.put("getItems", "SELECT * FROM Item");
+            queries.put("addItem", "INSERT INTO Item (type, title, author, url, description, isbn, read) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            queries.put("searchItems", "SELECT * FROM Item WHERE " 
+                    + "(title LIKE ? OR author LIKE ? "
+                    + "OR description LIKE ? OR url LIKE ? "
+                    + "OR isbn LIKE ?)");
+            queries.put("getItemById", "SELECT * FROM Item WHERE id = ?");
+            queries.put("deleteItemById", "DELETE FROM Item WHERE id = ?");
+            
+            return queries;
+        }
 
 }
