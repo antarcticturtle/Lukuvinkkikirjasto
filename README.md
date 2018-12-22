@@ -9,6 +9,8 @@ Codecov
 
 [Product and Sprint Backlog](https://docs.google.com/spreadsheets/d/1_fpNIoz3RRlVcXJGW_1-ZIt02osNVSdqZ4tlo_d4EaQ/edit?usp=sharing)
 
+Link to raport of our project: https://github.com/antarcticturtle/Lukuvinkkikirjasto/blob/master/Miniprojektin%20raportti.pdf
+
 ## Definition of done
 - Acceptance criteria for the user story are defined in product backlog
 - Code meets the acceptance criteria and is integrated into the software
